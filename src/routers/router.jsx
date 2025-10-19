@@ -13,7 +13,7 @@ const routes = [
     element: <OrderPage />,
   },
   {
-    path: "*", // "catch-all" route
+    path: "*", 
     element: <ErrorPage />,
   },
 ]
