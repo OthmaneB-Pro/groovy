@@ -8,7 +8,6 @@ import { useParams } from "react-router-dom"
 import { useOrderContext } from "../../../context/OrderContext"
 
 export default function OrderPage() {
-  // state
   const { username } = useParams()
   const { setMenu, setBasket } = useOrderContext()
 
@@ -16,7 +15,6 @@ export default function OrderPage() {
     initialiseUserSession(username, setMenu, setBasket)
   }, [])
 
-  //affichage (render)
   return (
     <OrderPageStyled>
       <div className="container">
