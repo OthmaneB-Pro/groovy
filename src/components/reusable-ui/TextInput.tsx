@@ -5,23 +5,15 @@ import { theme } from "../../theme";
 type TextInputVersion = "normal" | "minimalist";
 
 type TextInputProps = {
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
   Icon?: JSX.Element;
-  className?: string;
   version?: TextInputVersion;
-};
+} & React.DetailedHTMLProps<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  HTMLInputElement
+>;
 
 const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
-  (
-    {
-      onChange,
-      Icon,
-      className,
-      version = "normal",
-      ...extraProps
-    }: TextInputProps,
-    ref
-  ) => {
+  ({ onChange, Icon, className, version = "normal", ...extraProps }, ref) => {
     return (
       <TextInputStyled className={className} version={version}>
         <div className="icon">{Icon && Icon}</div>
