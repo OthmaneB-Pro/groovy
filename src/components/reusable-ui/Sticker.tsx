@@ -1,13 +1,13 @@
-import styled from "styled-components"
-import { theme } from "../../theme"
+import styled from "styled-components";
+import { theme } from "../../theme";
 
 type StickerProps = {
-  label : string;
-  className? : string;
-}
+  label: string;
+  className?: string;
+};
 
-export default function Sticker({ label = "new", className } : StickerProps) {
-  return <StickerStyled className={className}>{label}</StickerStyled>
+export default function Sticker({ label = "new", className }: StickerProps) {
+  return <StickerStyled className={className}>{label}</StickerStyled>;
 }
 
 const StickerStyled = styled.span`
@@ -23,4 +23,4 @@ const StickerStyled = styled.span`
   border: none;
   color: white;
   text-transform: uppercase;
-`
+`;
