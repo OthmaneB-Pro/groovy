@@ -8,7 +8,7 @@ type SelectInputProps = {
 } & ComponentProps<"select">;
 
 type OptionsProps = {
-  optionValue: string | number | readonly string[] | undefined;
+  optionValue?: string | number | readonly string[];
   label: string;
 };
 
