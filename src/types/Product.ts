@@ -8,7 +8,9 @@ export type MenuProduct = {
   isPublicised: boolean;
 };
 
-export type BasketProduct = {
+export type BasketProductQuantity = {
   id: string;
   quantity: number;
 };
+
+export type BasketProduct = MenuProduct & BasketProductQuantity;
