@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export const useSuccessMessage = (timeDelay = 2000) => {
+export const useSuccessMessage = (timeDelay : number = 2000) => {
   const [isSubmitted, setIsSubmitted] = useState(false)
 
   const displaySuccessMessage = () => {
