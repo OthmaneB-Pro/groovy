@@ -54,11 +54,11 @@ export const useBasket = () => {
     setLocalStorage(username, newBasket);
   };
 
-  const handleDeleteBasketProductQuantity = (
-    idBasketProductQuantity: string,
+  const handleDeleteBasketProduct = (
+    idBasketProduct: string,
     username: string
   ) => {
-    const basketUpdated = removeObjectById(idBasketProductQuantity, basket);
+    const basketUpdated = removeObjectById(idBasketProduct, basket);
     setBasket(basketUpdated);
     setLocalStorage(username, basketUpdated);
   };
@@ -67,6 +67,6 @@ export const useBasket = () => {
     basket,
     setBasket,
     handleAddToBasket,
-    handleDeleteBasketProductQuantity,
+    handleDeleteBasketProduct,
   };
 };
