@@ -3,7 +3,7 @@ export type MenuProduct = {
   imageSource: string;
   title: string;
   price: number;
-  quantity: number;
+  quantity?: number;
   isAvailable: boolean;
   isPublicised: boolean;
 };
