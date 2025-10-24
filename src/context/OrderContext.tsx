@@ -20,6 +20,7 @@ type OrderContextType = {
   currentTabSelected: ADMIN_TAB_LABEL;
   setCurrentTabSelected: React.Dispatch<React.SetStateAction<ADMIN_TAB_LABEL>>;
   menu: MenuProduct[] | undefined;
+  setMenu: React.Dispatch<React.SetStateAction<MenuProduct[] | undefined>>;
   handleAdd: (newProduct: MenuProduct, username: string) => void;
   handleDelete: (idOfProductToDelete: string, username: string) => void;
   handleEdit: (productBeingEdited: MenuProduct, username: string) => void;
@@ -31,6 +32,7 @@ type OrderContextType = {
   handleProductSelected: (idProductClicked: string) => Promise<void>;
   titleEditRef: React.RefObject<HTMLInputElement>;
   basket: BasketProductQuantity[];
+  setBasket: React.Dispatch<React.SetStateAction<BasketProductQuantity[]>>;
   handleAddToBasket: (idProductToAdd: string, username: string) => void;
   handleDeleteBasketProduct: (
     idBasketProduct: string,
@@ -96,4 +98,12 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
   );
 };
 
-export const useOrderContext = () => useContext(OrderContext);
+export const useOrderContext = () => {
+  const orderContextData = useContext(OrderContext);
+  if (orderContextData === undefined)
+    throw new Error(
+      "useOrderContext() can only be used within OrderContextProvider"
+    );
+
+  return orderContextData;
+};
