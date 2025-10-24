@@ -1,9 +1,8 @@
-import { createBrowserRouter } from "react-router-dom"
+import { createBrowserRouter } from "react-router-dom";
 //@ts-ignore
-import LoginPage from "@/components/pages/login/LoginPage"
-//@ts-ignore
-import OrderPage from "@/components/pages/order/OrderPage"
-import ErrorPage from "@/components/pages/error/ErrorPage"
+import OrderPage from "@/components/pages/order/OrderPage";
+import ErrorPage from "@/components/pages/error/ErrorPage";
+import LoginPage from "@/components/pages/login/LoginPage";
 
 const routes = [
   {
@@ -15,9 +14,9 @@ const routes = [
     element: <OrderPage />,
   },
   {
-    path: "*", 
+    path: "*",
     element: <ErrorPage />,
   },
-]
+];
 
-export const router = createBrowserRouter(routes)
+export const router = createBrowserRouter(routes);
