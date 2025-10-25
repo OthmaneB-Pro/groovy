@@ -1,3 +1,4 @@
+//@ts-nocheck
 import styled from "styled-components"
 import { theme } from "../../../../../theme"
 import Header from "../../../../reusable-ui/Header"

@@ -1,9 +1,8 @@
-//@ts-nocheck
-import styled from "styled-components"
-import BasketHeader from "./BasketHeader/BasketHeader"
-import BasketFooter from "./BasketFooter"
-import { theme } from "../../../../../theme"
-import BasketBody from "./BasketBody/BasketBody"
+import styled from "styled-components";
+import { theme } from "@/theme";
+import BasketHeader from "./BasketHeader/BasketHeader";
+import BasketBody from "./BasketBody/BasketBody";
+import BasketFooter from "./BasketFooter";
 
 export default function Basket() {
   return (
@@ -12,7 +11,7 @@ export default function Basket() {
       <BasketBody />
       <BasketFooter />
     </BasketStyled>
-  )
+  );
 }
 
 const BasketStyled = styled.div`
@@ -33,4 +32,4 @@ const BasketStyled = styled.div`
     position: sticky;
     bottom: 0;
   }
-`
+`;

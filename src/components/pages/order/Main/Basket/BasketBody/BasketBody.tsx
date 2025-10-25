@@ -1,4 +1,4 @@
-import React from "react"
+//@ts-nocheck
 import { isEmpty } from "../../../../../../utils/array"
 import { useOrderContext } from "../../../../../../context/OrderContext"
 import EmptyBasket from "./EmptyBasket"
