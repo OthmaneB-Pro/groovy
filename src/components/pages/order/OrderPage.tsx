@@ -3,7 +3,6 @@ import { theme } from "@/theme";
 //@ts-ignore
 import Main from "./Main/Main";
 import Navbar from "./Navbar/Navbar";
-//@ts-ignore
 import { initialiseUserSession } from "./helpers/initialiseUserSession";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
