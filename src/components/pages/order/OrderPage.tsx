@@ -13,7 +13,7 @@ export default function OrderPage() {
   const { setMenu, setBasket } = useOrderContext();
 
   useEffect(() => {
-    initialiseUserSession(username, setMenu, setBasket);
+    username && initialiseUserSession(username, setMenu, setBasket);
   }, []);
 
   return (
