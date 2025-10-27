@@ -1,4 +1,4 @@
-import React from "react";
+//@ts-nocheck
 import styled from "styled-components";
 import { theme } from "../../../../../../theme";
 import { BASKET_MESSAGE } from "../../../../../../constants/product";
