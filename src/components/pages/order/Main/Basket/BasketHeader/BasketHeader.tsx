@@ -1,16 +1,16 @@
-//@ts-nocheck
-import styled from "styled-components"
-import { useOrderContext } from "../../../../../../context/OrderContext"
-import { theme } from "../../../../../../theme"
-import { formatPrice } from "../../../../../../utils/maths"
-import Header from "../../../../../reusable-ui/Header"
-import { calculateSumToPay } from "./helper"
-import CasinoEffect from "../../../../../reusable-ui/CasinoEffect"
+import styled from "styled-components";
+import { useOrderContext } from "@/context/OrderContext";
+import { theme } from "@/theme";
+import { formatPrice } from "@/utils/maths";
+import CasinoEffect from "@/components/reusable-ui/CasinoEffect";
+import Header from "@/components/reusable-ui/Header";
+import { calculateSumToPay } from "./helper";
+import { MenuProduct } from "@/types/Product";
 
 export default function BasketHeader() {
-  const { basket, menu } = useOrderContext()
+  const { basket, menu } = useOrderContext();
 
-  const sumToPay = calculateSumToPay(basket, menu)
+  const sumToPay = calculateSumToPay(basket, menu as MenuProduct[]);
 
   return (
     <Header>
@@ -19,7 +19,7 @@ export default function BasketHeader() {
         <CasinoEffect count={formatPrice(sumToPay)} />
       </BasketHeaderStyled>
     </Header>
-  )
+  );
 }
 
 const BasketHeaderStyled = styled.div`
@@ -32,4 +32,4 @@ const BasketHeaderStyled = styled.div`
   font-size: ${theme.fonts.size.P4};
   font-weight: ${theme.fonts.weights.bold};
   letter-spacing: 2px;
-`
+`;
