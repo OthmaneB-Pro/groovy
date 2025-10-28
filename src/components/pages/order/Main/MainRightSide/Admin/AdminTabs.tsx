@@ -1,28 +1,30 @@
-import styled from "styled-components"
-import Tab from "../../../../../reusable-ui/Tab"
-import { FiChevronDown, FiChevronUp } from "react-icons/fi"
-import { theme } from "../../../../../../theme"
-import { useOrderContext } from "../../../../../../context/OrderContext"
-import { getTabsConfig } from "./tabsConfig"
+import styled from "styled-components";
+import Tab from "@/components/reusable-ui/Tab";
+import { FiChevronDown, FiChevronUp } from "react-icons/fi";
+import { theme } from "@/theme";
+import { useOrderContext } from "@/context/OrderContext";
+import { getTabsConfig } from "./tabsConfig";
+import { ADMIN_TAB_LABEL } from "@/constants/tabs";
 
 export default function AdminTabs() {
-  // state
-  const { isCollapsed, setIsCollapsed, currentTabSelected, setCurrentTabSelected } =
-    useOrderContext()
+  const {
+    isCollapsed,
+    setIsCollapsed,
+    currentTabSelected,
+    setCurrentTabSelected,
+  } = useOrderContext();
 
-  // comportements
-  const selectTab = (tabSelected) => {
-    setIsCollapsed(false) // tu m'ouvres le pannel
-    setCurrentTabSelected(tabSelected)
-  }
+  const selectTab = (tabSelected: ADMIN_TAB_LABEL) => {
+    setIsCollapsed(false);
+    setCurrentTabSelected(tabSelected);
+  };
 
-  const tabs = getTabsConfig()
+  const tabs = getTabsConfig();
 
-  // affichage
   return (
     <AdminTabsStyled>
       <Tab
-        index="chevron"
+        index={ADMIN_TAB_LABEL.CHEVRON}
         label=""
         Icon={isCollapsed ? <FiChevronUp /> : <FiChevronDown />}
         onClick={() => setIsCollapsed(!isCollapsed)}
@@ -39,7 +41,7 @@ export default function AdminTabs() {
         />
       ))}
     </AdminTabsStyled>
-  )
+  );
 }
 
 const AdminTabsStyled = styled.div`
@@ -57,4 +59,4 @@ const AdminTabsStyled = styled.div`
   button {
     margin-left: 1px;
   }
-`
+`;
