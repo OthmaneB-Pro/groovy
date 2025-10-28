@@ -6,7 +6,7 @@ import CasinoEffect from "@/components/reusable-ui/CasinoEffect";
 
 type BasketCardProps = {
   title: string;
-  price: number;
+  price: string;
   quantity: number;
   imageSource: string;
   className?: string;
