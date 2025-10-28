@@ -1,5 +1,5 @@
+import Ribbon from "@/components/reusable-ui/Ribbon"
 import { CSSTransition } from "react-transition-group"
-import Ribbon from "../../../../../reusable-ui/Ribbon"
 import { css } from "styled-components"
 
 export default function RibbonAnimated() {
