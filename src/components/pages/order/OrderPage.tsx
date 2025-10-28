@@ -3,7 +3,6 @@ import { theme } from "@/theme";
 //@ts-ignore
 import Main from "./Main/Main";
 import Navbar from "./Navbar/Navbar";
-//@ts-ignore
 import { initialiseUserSession } from "./helpers/initialiseUserSession";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -14,7 +13,7 @@ export default function OrderPage() {
   const { setMenu, setBasket } = useOrderContext();
 
   useEffect(() => {
-    initialiseUserSession(username, setMenu, setBasket);
+    username && initialiseUserSession(username, setMenu, setBasket);
   }, []);
 
   return (
