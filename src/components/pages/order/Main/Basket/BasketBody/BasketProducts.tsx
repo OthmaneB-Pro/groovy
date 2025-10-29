@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 import BasketCard from "./BasketCard";
 import { checkIfProductIsClicked } from "../../MainRightSide/Menu/helper";
 import { MenuProduct } from "@/types/Product";
+import { ReactElement } from "react";
 
 export default function BasketProducts() {
   const {
@@ -43,8 +44,8 @@ export default function BasketProducts() {
       component={BasketProductsStyled}
       className={"transition-group"}
     >
-      <>
-        {basket.map((basketProduct) => {
+      {basket
+        .map((basketProduct) => {
           if (menu === undefined) return;
           const menuProduct = findObjectById(basketProduct.id, menu);
           if (!menuProduct) return;
@@ -80,8 +81,8 @@ export default function BasketProducts() {
               </div>
             </CSSTransition>
           );
-        })}
-      </>
+        })
+        .filter((child): child is ReactElement => child !== null)}
     </TransitionGroup>
   );
 }
