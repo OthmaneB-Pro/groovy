@@ -10,6 +10,7 @@ import { useParams } from "react-router-dom";
 import BasketCard from "./BasketCard";
 import { checkIfProductIsClicked } from "../../MainRightSide/Menu/helper";
 import { MenuProduct } from "@/types/Product";
+import { ReactElement } from "react";
 
 export default function BasketProducts() {
   const {
@@ -43,45 +44,41 @@ export default function BasketProducts() {
       component={BasketProductsStyled}
       className={"transition-group"}
     >
-      <>
-        {basket.map((basketProduct) => {
-          if (menu === undefined) return;
-          const menuProduct = findObjectById(basketProduct.id, menu);
-          if (!menuProduct) return;
-          return (
-            <CSSTransition
-              appear={true}
-              classNames={"animation-basket"}
-              key={basketProduct.id}
-              timeout={300}
-            >
-              <div className="card-container">
-                <BasketCard
-                  {...menuProduct}
-                  imageSource={
-                    menuProduct.imageSource
-                      ? menuProduct.imageSource
-                      : IMAGE_COMING_SOON
-                  }
-                  quantity={basketProduct.quantity}
-                  onDelete={(event) => handleOnDelete(event, basketProduct.id)}
-                  isClickable={isModeAdmin}
-                  onClick={() => handleProductSelected(basketProduct.id)}
-                  isSelected={checkIfProductIsClicked(
-                    basketProduct.id,
-                    productSelected.id
-                  )}
-                  className={"card"}
-                  price={getPrice(menuProduct)}
-                  isPublicised={convertStringToBoolean(
-                    menuProduct.isPublicised
-                  )}
-                />
-              </div>
-            </CSSTransition>
-          );
-        })}
-      </>
+      {basket.map((basketProduct) => {
+        if (menu === undefined) return <></>;
+        const menuProduct = findObjectById(basketProduct.id, menu);
+        if (!menuProduct) return <></>;
+        return (
+          <CSSTransition
+            appear={true}
+            classNames={"animation-basket"}
+            key={basketProduct.id}
+            timeout={300}
+          >
+            <div className="card-container">
+              <BasketCard
+                {...menuProduct}
+                imageSource={
+                  menuProduct.imageSource
+                    ? menuProduct.imageSource
+                    : IMAGE_COMING_SOON
+                }
+                quantity={basketProduct.quantity}
+                onDelete={(event) => handleOnDelete(event, basketProduct.id)}
+                isClickable={isModeAdmin}
+                onClick={() => handleProductSelected(basketProduct.id)}
+                isSelected={checkIfProductIsClicked(
+                  basketProduct.id,
+                  productSelected.id
+                )}
+                className={"card"}
+                price={getPrice(menuProduct)}
+                isPublicised={convertStringToBoolean(menuProduct.isPublicised)}
+              />
+            </div>
+          </CSSTransition>
+        );
+      })}
     </TransitionGroup>
   );
 }
