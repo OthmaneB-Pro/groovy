@@ -3,12 +3,10 @@ import { BsFillCameraFill } from "react-icons/bs";
 import { MdOutlineEuro } from "react-icons/md";
 import { FiPackage } from "react-icons/fi";
 import { GoMegaphone } from "react-icons/go";
-import {
-  isAvailableOptions,
-  isPublicisedOptions,
-} from "../../../../../../../../constants/select";
+import { isAvailableOptions, isPublicisedOptions } from "@/constants/select";
+import { MenuProduct } from "@/types/Product";
 
-export const getInputTextsConfig = (newProduct) => [
+export const getInputTextsConfig = (newProduct: MenuProduct) => [
   {
     id: "0",
     name: "title",
@@ -39,11 +37,11 @@ export const getInputTextsConfig = (newProduct) => [
   },
 ];
 
-export const getSelectInputConfig = (newProduct) => [
+export const getSelectInputConfig = (newProduct: MenuProduct) => [
   {
     id: "3",
     name: "isAvailable",
-    value: newProduct.isAvailable,
+    value: newProduct.isAvailable.toString(),
     options: isAvailableOptions,
     Icon: <FiPackage />,
     className: "is-available",
@@ -51,7 +49,7 @@ export const getSelectInputConfig = (newProduct) => [
   {
     id: "4",
     name: "isPublicised",
-    value: newProduct.isPublicised,
+    value: newProduct.isPublicised.toString(),
     options: isPublicisedOptions,
     Icon: <GoMegaphone />,
     className: "is-publicised",

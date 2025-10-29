@@ -1,9 +1,16 @@
-import React from "react"
-import styled from "styled-components"
-import { theme } from "../../../../../../../../theme"
-import { fadeIn } from "../../../../../../../../theme/animations"
+import styled from "styled-components";
+import { theme } from "@/theme";
+import { fadeIn } from "@/theme/animations";
 
-export default function ImagePreview({ imageSource, title }) {
+type ImagePreviewProps = {
+  imageSource: string;
+  title: string;
+};
+
+export default function ImagePreview({
+  imageSource,
+  title,
+}: ImagePreviewProps) {
   return (
     <ImagePreviewStyled>
       {imageSource ? (
@@ -12,7 +19,7 @@ export default function ImagePreview({ imageSource, title }) {
         <div className="empty-image">Aucune Image</div>
       )}
     </ImagePreviewStyled>
-  )
+  );
 }
 
 const ImagePreviewStyled = styled.div`
@@ -30,7 +37,6 @@ const ImagePreviewStyled = styled.div`
   }
 
   .empty-image {
-    /* background-color: green; */
     height: 100%;
     width: 100%;
     display: flex;
@@ -41,4 +47,4 @@ const ImagePreviewStyled = styled.div`
     color: ${theme.colors.greySemiDark};
     border-radius: ${theme.borderRadius.round};
   }
-`
+`;
