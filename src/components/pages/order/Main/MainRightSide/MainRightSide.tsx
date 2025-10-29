@@ -1,7 +1,7 @@
 //@ts-nocheck
 import styled from "styled-components"
-import { useOrderContext } from "../../../../../context/OrderContext"
-import { theme } from "../../../../../theme"
+import { useOrderContext } from "@/context/OrderContext"
+import { theme } from "@/theme"
 import Admin from "./Admin/Admin"
 import Menu from "./Menu/Menu"
 
