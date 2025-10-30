@@ -8,7 +8,8 @@ import { authenticateUser } from "@/api/user";
 import TextInput from "@/components/reusable-ui/TextInput";
 import { theme } from "@/theme";
 import Button from "@/components/reusable-ui/Button";
-import { loginFormValidator } from "./LoginFormValidator";
+import ErrorMessage from "@/components/reusable-ui/ErrorMessage";
+import { loginFormValidator } from "./loginFormValidator";
 
 export default function LoginForm() {
   const [username, setUsername] = useState<string>("");
@@ -48,7 +49,7 @@ export default function LoginForm() {
           className="input-login"
           version="normal"
         />
-        {error && <p>{error}</p>}
+        {error && <ErrorMessage error={error} />}
         <Button
           label={"Accéder à mon espace"}
           disabled={isLoading}
@@ -92,11 +93,5 @@ const LoginFormStyled = styled.form`
     svg {
       width: 25px;
     }
-  }
-  p {
-    color: ${theme.colors.red};
-    font-family: ${theme.fonts.family.openSans};
-    font-size: ${theme.fonts.size.P0};
-    line-height: 100%;
   }
 `;
