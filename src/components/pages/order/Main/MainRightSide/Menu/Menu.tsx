@@ -12,7 +12,7 @@ import {
   IMAGE_NO_STOCK,
 } from "@/constants/product";
 import { isEmpty } from "@/utils/array";
-import Loader from "./Loader";
+import LoadingMessage from "./LoadingMessage";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { menuAnimation } from "@/theme/animations";
 import { convertStringToBoolean } from "@/utils/string";
@@ -59,7 +59,7 @@ export default function Menu() {
     ? "card-container is-hoverable"
     : "card-container";
 
-  if (menu === undefined) return <Loader />;
+  if (menu === undefined) return <LoadingMessage />;
 
   if (isEmpty(menu)) {
     if (!isModeAdmin) return <EmptyMenuClient />;
