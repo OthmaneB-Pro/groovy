@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Logo from "@/components/reusable-ui/Logo";
 import LoginForm from "./LoginForm";
+import ContentLogin from "./ContentLogin";
 
 export default function LoginPage() {
   return (
@@ -9,10 +10,7 @@ export default function LoginPage() {
         <Logo className={"logo-login-page"} />
         <LoginForm />
       </div>
-      <div className="content">
-        <p>© 2025 Groovy Burger — Tous droits réservés.</p>
-        <p>Made with ❤️ by ViDev</p>
-      </div>
+      <ContentLogin />
     </LoginPageStyled>
   );
 }
@@ -44,22 +42,5 @@ const LoginPageStyled = styled.div`
 
   .logo-login-page {
     transform: scale(2.5);
-  }
-
-  .content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 50px;
-    width: 100%;
-    gap: 10px;
-    p {
-      font-family: Open Sans;
-      font-size: 15px;
-      line-height: 100%;
-      color: white;
-      margin: 0px;
-      box-shadow: (0, 0, 0, 0.2);
-    }
   }
 `;
