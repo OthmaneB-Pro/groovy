@@ -8,22 +8,29 @@ import { authenticateUser } from "@/api/user";
 import TextInput from "@/components/reusable-ui/TextInput";
 import { theme } from "@/theme";
 import Button from "@/components/reusable-ui/Button";
+import ErrorMessage from "@/components/reusable-ui/ErrorMessage";
+import { loginFormValidator } from "./loginFormValidator";
 
 export default function LoginForm() {
   const [username, setUsername] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const userReceived = await authenticateUser(username);
-    setIsLoading(true);
+    const zodUsername = loginFormValidator.safeParse(username);
+    if (!zodUsername.success) setError(zodUsername.error.issues[0].message);
+    else {
+      const userReceived = await authenticateUser(username);
+      setIsLoading(true);
 
-    setTimeout(() => {
-      setUsername("");
-      navigate(`order/${userReceived.username}`);
-    }, 2000);
+      setTimeout(() => {
+        setUsername("");
+        navigate(`order/${userReceived.username}`);
+      }, 2000);
+    }
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,11 +45,11 @@ export default function LoginForm() {
           value={username}
           onChange={handleChange}
           placeholder={"Votre prénom"}
-          required
           Icon={<BsPersonCircle />}
           className="input-login"
           version="normal"
         />
+        {error && <ErrorMessage error={error} />}
         <Button
           label={"Accéder à mon espace"}
           disabled={isLoading}
