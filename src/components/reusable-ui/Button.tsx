@@ -9,6 +9,7 @@ type ButtonProps = {
   label: string;
   Icon?: JSX.Element;
   version?: ButtonVersion;
+  isLoading? : boolean;
 } & ComponentProps<"button">;
 
 export default function Button({
@@ -18,6 +19,7 @@ export default function Button({
   version = "normal",
   onClick,
   disabled,
+  isLoading,
 }: ButtonProps) {
   return (
     <ButtonStyled
@@ -26,9 +28,14 @@ export default function Button({
       onClick={onClick}
       disabled={disabled}
     >
-      <span>{label}</span>
-      <div className="icon">{Icon && Icon}</div>
-      <Loader />
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <span>{label}</span>
+          <div className="icon">{Icon && Icon}</div>
+        </>
+      )}
     </ButtonStyled>
   );
 }
