@@ -28,6 +28,7 @@ export default function LoginForm() {
 
   return (
     <LoginFormStyled action="submit" onSubmit={handleSubmit}>
+      
       <Welcome />
       <div>
         <TextInput
@@ -39,7 +40,6 @@ export default function LoginForm() {
           className="input-login"
           version="normal"
         />
-
         <Button label={"Accéder à mon espace"} Icon={<IoChevronForward />} />
       </div>
     </LoginFormStyled>

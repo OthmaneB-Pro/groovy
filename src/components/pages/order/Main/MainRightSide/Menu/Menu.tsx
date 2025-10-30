@@ -12,12 +12,12 @@ import {
   IMAGE_NO_STOCK,
 } from "@/constants/product";
 import { isEmpty } from "@/utils/array";
-import LoadingMessage from "./LoadingMessage";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { menuAnimation } from "@/theme/animations";
 import { convertStringToBoolean } from "@/utils/string";
 import RibbonAnimated, { ribbonAnimation } from "./RibbonAnimated";
 import { useParams } from "react-router-dom";
+import LoadingMessage from "./LoadingMessage";
 
 export default function Menu() {
   const {
