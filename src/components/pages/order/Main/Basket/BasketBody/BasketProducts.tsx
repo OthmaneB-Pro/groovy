@@ -10,7 +10,6 @@ import { useParams } from "react-router-dom";
 import BasketCard from "./BasketCard";
 import { checkIfProductIsClicked } from "../../MainRightSide/Menu/helper";
 import { MenuProduct } from "@/types/Product";
-import { ReactElement } from "react";
 
 export default function BasketProducts() {
   const {
