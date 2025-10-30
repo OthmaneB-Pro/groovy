@@ -12,12 +12,12 @@ import {
   IMAGE_NO_STOCK,
 } from "@/constants/product";
 import { isEmpty } from "@/utils/array";
-import Loader from "./Loader";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { menuAnimation } from "@/theme/animations";
 import { convertStringToBoolean } from "@/utils/string";
 import RibbonAnimated, { ribbonAnimation } from "./RibbonAnimated";
 import { useParams } from "react-router-dom";
+import LoadingMessage from "./LoadingMessage";
 
 export default function Menu() {
   const {
@@ -59,7 +59,7 @@ export default function Menu() {
     ? "card-container is-hoverable"
     : "card-container";
 
-  if (menu === undefined) return <Loader />;
+  if (menu === undefined) return <LoadingMessage />;
 
   if (isEmpty(menu)) {
     if (!isModeAdmin) return <EmptyMenuClient />;

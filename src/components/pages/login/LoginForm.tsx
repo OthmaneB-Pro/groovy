@@ -11,15 +11,19 @@ import Button from "@/components/reusable-ui/Button";
 
 export default function LoginForm() {
   const [username, setUsername] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const userReceived = await authenticateUser(username);
+    setIsLoading(true);
 
-    setUsername("");
-    navigate(`order/${userReceived.username}`);
+    setTimeout(() => {
+      setUsername("");
+      navigate(`order/${userReceived.username}`);
+    }, 2000);
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,8 +43,12 @@ export default function LoginForm() {
           className="input-login"
           version="normal"
         />
-
-        <Button label={"Accéder à mon espace"} Icon={<IoChevronForward />} />
+        <Button
+          label={"Accéder à mon espace"}
+          disabled={isLoading}
+          isLoading={isLoading}
+          Icon={<IoChevronForward />}
+        />
       </div>
     </LoginFormStyled>
   );
