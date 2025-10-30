@@ -19,6 +19,7 @@ export default function Logo({ className, onClick }: LogoProps) {
 const LogoStyled = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
 
   h1 {
     display: inline;
