@@ -94,15 +94,9 @@ const LoginFormStyled = styled.form`
     }
   }
   p {
-    color: rgba(226, 85, 73, 1);
-    font-family: Open Sans;
-    font-weight: 400;
-    font-style: Regular;
-    font-size: 16px;
-    leading-trim: NONE;
+    color: ${theme.colors.red};
+    font-family: ${theme.fonts.family.openSans};
+    font-size: ${theme.fonts.size.P0};
     line-height: 100%;
-    letter-spacing: 0%;
-    text-align: center;
-    vertical-align: middle;
   }
 `;
