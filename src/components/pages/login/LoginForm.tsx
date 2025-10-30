@@ -8,7 +8,7 @@ import { authenticateUser } from "@/api/user";
 import TextInput from "@/components/reusable-ui/TextInput";
 import { theme } from "@/theme";
 import Button from "@/components/reusable-ui/Button";
-import { UserSchema } from "./userSchema";
+import { loginFormValidator } from "./LoginFormValidator";
 
 export default function LoginForm() {
   const [username, setUsername] = useState<string>("");
@@ -19,7 +19,7 @@ export default function LoginForm() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const zodUsername = UserSchema.safeParse({ username });
+    const zodUsername = loginFormValidator.safeParse(username);
     if (!zodUsername.success) setError(zodUsername.error.issues[0].message);
     else {
       const userReceived = await authenticateUser(username);
