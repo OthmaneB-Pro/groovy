@@ -74,4 +74,9 @@ const LoginFormStyled = styled.form`
   .input-login {
     margin: 18px 0;
   }
+  button {
+    svg {
+      width: 25px;
+    }
+  }
 `;
