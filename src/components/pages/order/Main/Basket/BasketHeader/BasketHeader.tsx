@@ -5,12 +5,12 @@ import { formatPrice } from "@/utils/maths";
 import CasinoEffect from "@/components/reusable-ui/CasinoEffect";
 import Header from "@/components/reusable-ui/Header";
 import { calculateSumToPay } from "./helper";
-import { MenuProduct } from "@/types/Product";
+import { Product } from "@/types/Product";
 
 export default function BasketHeader() {
   const { basket, menu } = useOrderContext();
 
-  const sumToPay = calculateSumToPay(basket, menu as MenuProduct[]);
+  const sumToPay = calculateSumToPay(basket, menu as Product[]);
 
   return (
     <Header>

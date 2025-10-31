@@ -1,3 +1,5 @@
+import { Category } from "@/types/Category";
+
 export const deepClone = <T>(array: T[]): T[] => {
   return JSON.parse(JSON.stringify(array));
 };
@@ -27,4 +29,10 @@ export const removeObjectById = <T extends { id: string }>(
 
 export const isEmpty = <T>(array: T[]): boolean => {
   return array.length === 0;
+};
+
+export const getCategoryActive = (
+  categories: Category[]
+): Category | undefined => {
+  return categories.find((category) => category.isActive);
 };

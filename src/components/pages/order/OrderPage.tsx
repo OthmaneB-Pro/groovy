@@ -6,14 +6,20 @@ import { initialiseUserSession } from "./helpers/initialiseUserSession";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useOrderContext } from "@/context/OrderContext";
-import { ModalShortCuts } from "@/components/pages/order/ModalShortCuts";
+import { ModalShortCuts } from "@/components/pages/order/Main/MainLeftSide/Admin/ModalShortCuts";
 import { useCreateKeyboardShortcuts } from "@/hooks/useCreateKeyboardShortcut";
 import { isMac } from "@/utils/window";
 
 export default function OrderPage() {
   const { username } = useParams();
-  const { setMenu, setBasket, setIsModeAdmin, setIsCollapsed, isModeAdmin } =
-    useOrderContext();
+  const {
+    setMenu,
+    setBasket,
+    setIsModeAdmin,
+    setIsCollapsed,
+    isModeAdmin,
+    setCategories,
+  } = useOrderContext();
   const [isModal, setIsModal] = useState(true);
 
   const commandKey = isMac() ? "meta" : "ctrl";
@@ -24,7 +30,8 @@ export default function OrderPage() {
   });
 
   useEffect(() => {
-    username && initialiseUserSession(username, setMenu, setBasket);
+    username &&
+      initialiseUserSession(username, setMenu, setBasket, setCategories);
   }, []);
 
   return (

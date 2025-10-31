@@ -1,16 +1,12 @@
-import {
-  createContext,
-  PropsWithChildren,
-  useContext,
-  useRef,
-  useState,
-} from "react";
+import { createContext, PropsWithChildren, useContext, useRef, useState } from "react";
 import { useMenu } from "@/hooks/useMenu";
 import { useBasket } from "@/hooks/useBasket";
 import { findObjectById } from "@/utils/array";
 import { EMPTY_PRODUCT } from "@/constants/product";
-import { BasketProductQuantity, MenuProduct } from "@/types/Product";
+import { BasketProductQuantity, Product } from "@/types/Product";
 import { ADMIN_TAB_LABEL } from "@/constants/tabs";
+import { useCategories } from "@/hooks/useCategories";
+import { Category } from "@/types/Category";
 
 type OrderContextType = {
   isModeAdmin: boolean;
@@ -19,17 +15,16 @@ type OrderContextType = {
   setIsCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
   currentTabSelected: ADMIN_TAB_LABEL;
   setCurrentTabSelected: React.Dispatch<React.SetStateAction<ADMIN_TAB_LABEL>>;
-  menu: MenuProduct[] | undefined;
-  setMenu: React.Dispatch<React.SetStateAction<MenuProduct[] | undefined>>;
-  handleAdd: (newProduct: MenuProduct, username: string) => void;
+  menu: Product[] | undefined;
+  setMenu: React.Dispatch<React.SetStateAction<Product[] | undefined>>;
+  handleAdd: (newProduct: Product, username: string) => void;
   handleDelete: (idOfProductToDelete: string, username: string) => void;
-  handleEdit: (productBeingEdited: MenuProduct, username: string) => void;
   resetMenu: (username: string) => void;
-  newProduct: MenuProduct;
-  setNewProduct: React.Dispatch<React.SetStateAction<MenuProduct>>;
-  productSelected: MenuProduct;
-  setProductSelected: React.Dispatch<React.SetStateAction<MenuProduct>>;
-  handleProductSelected: (idProductClicked: string) => Promise<void>;
+  newProduct: Product;
+  setNewProduct: React.Dispatch<React.SetStateAction<Product>>;
+  productSelected: Product;
+  setProductSelected: React.Dispatch<React.SetStateAction<Product>>;
+  handleEdit: (productBeingEdited: Product, username: string) => void;
   titleEditRef: React.RefObject<HTMLInputElement>;
   basket: BasketProductQuantity[];
   setBasket: React.Dispatch<React.SetStateAction<BasketProductQuantity[]>>;
@@ -38,6 +33,15 @@ type OrderContextType = {
     idBasketProduct: string,
     username: string
   ) => void;
+  handleProductSelected: (idProductClicked: string) => Promise<void>;
+  categories: Category[];
+  setCategories: React.Dispatch<React.SetStateAction<Category[]>>;
+  handleAddCategory: (newCategory: Category, username: string) => void;
+  toggleCategoryById: (categoryIdToToggle: string, username: string) => void;
+  categoryAll: Category;
+  toggleAllCategories: () => void;
+  toggleMenusCategory: () => void;
+  categoryMenus: Category;
 };
 
 const OrderContext = createContext<OrderContextType | undefined>(undefined);
@@ -49,12 +53,23 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
     ADMIN_TAB_LABEL.ADD
   );
   const [newProduct, setNewProduct] = useState(EMPTY_PRODUCT);
-  const [productSelected, setProductSelected] = useState(EMPTY_PRODUCT);
+  const [productSelected, setProductSelected] =
+    useState<Product>(EMPTY_PRODUCT);
   const titleEditRef = useRef<HTMLInputElement>(null);
   const { menu, setMenu, handleAdd, handleDelete, handleEdit, resetMenu } =
     useMenu();
   const { basket, setBasket, handleAddToBasket, handleDeleteBasketProduct } =
     useBasket();
+  const {
+    categories,
+    setCategories,
+    handleAddCategory,
+    toggleCategoryById,
+    categoryAll,
+    toggleAllCategories,
+    toggleMenusCategory,
+    categoryMenus,
+  } = useCategories();
 
   const handleProductSelected = async (idProductClicked: string) => {
     if (!isModeAdmin || !menu) return;
@@ -66,7 +81,7 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
     titleEditRef.current?.focus();
   };
 
-  const orderContextValue = {
+  const orderContextValue: OrderContextType = {
     isModeAdmin,
     setIsModeAdmin,
     isCollapsed,
@@ -89,6 +104,14 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
     handleAddToBasket,
     handleDeleteBasketProduct,
     handleProductSelected,
+    categories,
+    handleAddCategory,
+    setCategories,
+    toggleCategoryById,
+    categoryAll,
+    toggleAllCategories,
+    toggleMenusCategory,
+    categoryMenus,
   };
 
   return (
