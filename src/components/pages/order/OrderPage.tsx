@@ -10,7 +10,7 @@ import { ModalShortCuts } from "@/components/pages/order/ModalShortCuts";
 
 export default function OrderPage() {
   const { username } = useParams();
-  const { setMenu, setBasket, setIsModeAdmin, setIsCollapsed } =
+  const { setMenu, setBasket, setIsModeAdmin, setIsCollapsed, isModeAdmin } =
     useOrderContext();
   const [isModal, setIsModal] = useState(true);
 
@@ -42,7 +42,7 @@ export default function OrderPage() {
 
   return (
     <OrderPageStyled>
-      {isModal && <ModalShortCuts onClose={() => setIsModal(false)} />}
+      {isModeAdmin && isModal && <ModalShortCuts onClose={() => setIsModal(false)} />}
       <div className="container">
         <Navbar />
         <Main />
