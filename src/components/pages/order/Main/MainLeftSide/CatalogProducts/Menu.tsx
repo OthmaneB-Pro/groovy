@@ -3,8 +3,8 @@ import { useOrderContext } from "@/context/OrderContext";
 import { theme } from "@/theme";
 import { formatPrice } from "@/utils/maths";
 import Card from "@/components/reusable-ui/Card";
-import EmptyMenuAdmin from "./EmptyMenuAdmin";
-import EmptyMenuClient from "./EmptyMenuClient";
+import EmptyMenuAdmin from "./EmptyCatalogProductsAdmin";
+import EmptyMenuClient from "./EmptyCatalogProductsClient";
 import { checkIfProductIsClicked } from "./helper";
 import {
   EMPTY_PRODUCT,

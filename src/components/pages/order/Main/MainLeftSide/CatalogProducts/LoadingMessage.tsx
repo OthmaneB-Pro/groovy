@@ -1,17 +1,16 @@
-import styled from "styled-components";
-import { theme } from "@/theme";
+import styled from "styled-components"
+import { theme } from "@/theme"
+import { Loader } from "@/components/reusable-ui/Loader"
 
 export default function LoadingMessage() {
   return (
     <LoadingMessageStyled>
-      <span className="title">Chargement en cours ...</span>
+      <Loader variant="P3" />
     </LoadingMessageStyled>
-  );
+  )
 }
 
 const LoadingMessageStyled = styled.div`
-  background-color: ${theme.colors.background_white};
-  box-shadow: ${theme.shadows.strong};
   border-bottom-right-radius: ${theme.borderRadius.extraRound};
   display: flex;
   flex-direction: column;
@@ -24,4 +23,4 @@ const LoadingMessageStyled = styled.div`
     font-size: ${theme.fonts.size.P4};
     font-weight: ${theme.fonts.weights.regular};
   }
-`;
+`

@@ -20,7 +20,7 @@ const colors = {
   rose: "#FF99C8",
   purple: "#A01FF0",
   yellow: "#FFC300",
-};
+} as const;
 
 export type Color = typeof colors;
 
