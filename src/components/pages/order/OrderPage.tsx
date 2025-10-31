@@ -7,6 +7,7 @@ import { initialiseUserSession } from "./helpers/initialiseUserSession";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useOrderContext } from "@/context/OrderContext";
+import { ModalShortCuts } from "@/components/pages/order/ModalShortCuts";
 
 export default function OrderPage() {
   const { username } = useParams();
@@ -18,6 +19,7 @@ export default function OrderPage() {
 
   return (
     <OrderPageStyled>
+      <ModalShortCuts/>
       <div className="container">
         <Navbar />
         <Main />
