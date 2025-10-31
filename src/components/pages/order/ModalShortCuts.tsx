@@ -1,16 +1,19 @@
 import { theme } from "@/theme";
+import { isMac } from "@/utils/window";
 import styled from "styled-components";
 
 type ModalShortCutsProps = {
   onClose?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
+const raccourci = isMac() ? "⌘" : "Ctrl";
+
 export const ModalShortCuts = ({ onClose }: ModalShortCutsProps) => {
   return (
     <ModalShortCutsStyled>
       <span className="title">💡 Pour aller plus vite :</span>
-      <span>⌘ + i : Toggle "mode" admin</span>
-      <span>⌘ + j : Toggle "panel" admin</span>
+      <span>{raccourci} + i : Toggle "mode" admin</span>
+      <span>{raccourci} + j : Toggle "panel" admin</span>
       <button onClick={onClose}>Ne plus afficher</button>
     </ModalShortCutsStyled>
   );
