@@ -1,26 +1,26 @@
-import styled, { css } from "styled-components"
-import { theme } from "@/theme"
-import Button from "./Button"
-import { TiDelete } from "react-icons/ti"
-import { fadeInFromRight, fadeInFromTop } from "@/theme/animations"
-import { Chips } from "../pages/order/Main/MainLeftSide/Menu/Chips"
+import styled, { css } from "styled-components";
+import { theme } from "@/theme";
+import Button from "./Button";
+import { TiDelete } from "react-icons/ti";
+import { fadeInFromRight, fadeInFromTop } from "@/theme/animations";
+import { Chips } from "../pages/order/Main/MainLeftSide/Menu/Chips";
 
 type CardProps = {
-  title?: string
-  imageSource?: string
-  leftDescription: string
-  hasDeleteButton?: boolean
-  onDelete?: React.MouseEventHandler<HTMLButtonElement>
-  onClick?: React.MouseEventHandler<HTMLDivElement>
-  isHoverable?: boolean
-  isSelected?: boolean
-  isMenu?: boolean
-  onAdd?: React.MouseEventHandler<HTMLButtonElement>
-  overlapImageSource: string
-  isOverlapImageVisible?: boolean
-  categories?: any
-  oldPrice?: any
-}
+  title?: string;
+  imageSource?: string;
+  leftDescription: string;
+  hasDeleteButton?: boolean;
+  onDelete?: React.MouseEventHandler<HTMLButtonElement>;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
+  isHoverable?: boolean;
+  isSelected?: boolean;
+  isMenu?: boolean;
+  onAdd?: React.MouseEventHandler<HTMLButtonElement>;
+  overlapImageSource: string;
+  isOverlapImageVisible?: boolean;
+  categories?: any;
+  oldPrice?: any;
+};
 
 export default function Card({
   title,
@@ -37,7 +37,7 @@ export default function Card({
   isOverlapImageVisible,
   categories,
   oldPrice,
-}: any) {
+}: CardProps) {
   // state (vide)
 
   // affichage
@@ -52,7 +52,11 @@ export default function Card({
     >
       <div className="card">
         {hasDeleteButton && (
-          <button className="delete-button" aria-label="delete-button" onClick={onDelete}>
+          <button
+            className="delete-button"
+            aria-label="delete-button"
+            onClick={onDelete}
+          >
             <TiDelete className="icon" />
           </button>
         )}
@@ -61,7 +65,11 @@ export default function Card({
           {isOverlapImageVisible && (
             <div className="overlap">
               <div className="transparent-layer"></div>
-              <img className="overlap-image" src={overlapImageSource} alt="overlap" />
+              <img
+                className="overlap-image"
+                src={overlapImageSource}
+                alt="overlap"
+              />
             </div>
           )}
           <img className="product" src={imageSource} alt={title} />
@@ -87,10 +95,10 @@ export default function Card({
       </div>
       {hasDeleteButton && <Chips categories={categories} />}
     </CardStyled>
-  )
+  );
 }
 
-type CardStyledProps = any
+type CardStyledProps = any;
 
 const CardStyled = styled.div<CardStyledProps>`
   ${({ isHoverable }) => isHoverable && hoverableStyle}
@@ -121,7 +129,7 @@ const CardStyled = styled.div<CardStyledProps>`
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     border-radius: ${({ areChipsVisible }) =>
-    areChipsVisible === false && theme.borderRadius.extraRound};
+      areChipsVisible === false && theme.borderRadius.extraRound};
 
     .delete-button {
       border: 1px solid red;
@@ -237,7 +245,7 @@ const CardStyled = styled.div<CardStyledProps>`
             left: 0;
             text-decoration: line-through;
             color: ${({ isSelected }) =>
-    isSelected ? theme.colors.white : theme.colors.redSecondary};
+              isSelected ? theme.colors.white : theme.colors.redSecondary};
             font-size: ${theme.fonts.size.XS};
             font-weight: ${theme.fonts.weights.semiBold};
           }
@@ -257,16 +265,17 @@ const CardStyled = styled.div<CardStyledProps>`
       }
     }
 
-    ${({ isHoverable, isSelected, isMenu }) => isHoverable && isSelected && selectedStyle(isMenu)}
+    ${({ isHoverable, isSelected, isMenu }) =>
+      isHoverable && isSelected && selectedStyle(isMenu)}
   }
-`
+`;
 
 const hoverableStyle = css`
   :hover {
     /* box-shadow: ${theme.shadows.orangeHighlight}; */
     cursor: pointer;
   }
-`
+`;
 
 const selectedStyle = (isMenu?: any) => css`
   background: ${isMenu ? theme.colors.purple : theme.colors.primary};
@@ -324,4 +333,4 @@ const selectedStyle = (isMenu?: any) => css`
       }
     }
   }
-`
+`;

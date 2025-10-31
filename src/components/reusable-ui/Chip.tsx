@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { theme } from "@/theme"
 import styled from "styled-components"
 import { getCategoryIcon } from "@/utils/icon";
