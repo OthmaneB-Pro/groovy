@@ -1,4 +1,3 @@
-//@ts-nocheck
 import styled from "styled-components";
 import { theme } from "@/theme";
 import Main from "./Main/Main";
@@ -13,8 +12,14 @@ import { isMac } from "@/utils/window";
 
 export default function OrderPage() {
   const { username } = useParams();
-  const { setMenu, setBasket, setIsModeAdmin, setIsCollapsed, isModeAdmin } =
-    useOrderContext();
+  const {
+    setMenu,
+    setBasket,
+    setIsModeAdmin,
+    setIsCollapsed,
+    isModeAdmin,
+    setCategories,
+  } = useOrderContext();
   const [isModal, setIsModal] = useState(true);
 
   const commandKey = isMac() ? "meta" : "ctrl";
@@ -25,7 +30,8 @@ export default function OrderPage() {
   });
 
   useEffect(() => {
-    username && initialiseUserSession(username, setMenu, setBasket);
+    username &&
+      initialiseUserSession(username, setMenu, setBasket, setCategories);
   }, []);
 
   return (

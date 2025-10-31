@@ -1,10 +1,7 @@
 import { AiOutlinePlus } from "react-icons/ai";
 import { MdModeEditOutline } from "react-icons/md";
-//@ts-ignore
 import EditForm from "./AdminPanel/EditForm/EditForm";
-//@ts-ignore
 import HintMessage from "./AdminPanel/EditForm/HintMessage";
-//@ts-ignore
 import AddForm from "./AdminPanel/AddForm/AddForm";
 import { TabType } from "@/types/Tabs";
 import { ADMIN_TAB_LABEL } from "@/constants/tabs";
