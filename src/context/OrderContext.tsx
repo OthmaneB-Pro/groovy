@@ -1,4 +1,4 @@
-import { createContext, useContext, useRef, useState } from "react";
+import { createContext, PropsWithChildren, useContext, useRef, useState } from "react";
 import { useMenu } from "@/hooks/useMenu";
 import { useBasket } from "@/hooks/useBasket";
 import { findObjectById } from "@/utils/array";
@@ -46,7 +46,7 @@ type OrderContextType = {
 
 const OrderContext = createContext<OrderContextType | undefined>(undefined);
 
-export const OrderContextProvider = ({ children }: any) => {
+export const OrderContextProvider = ({ children }: PropsWithChildren) => {
   const [isModeAdmin, setIsModeAdmin] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [currentTabSelected, setCurrentTabSelected] = useState<ADMIN_TAB_LABEL>(
