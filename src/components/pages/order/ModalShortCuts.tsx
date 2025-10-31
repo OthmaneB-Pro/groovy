@@ -26,36 +26,33 @@ const ModalShortCutsStyled = styled.div`
   position: absolute;
   top: 40px;
   left: 40px;
-  border-radius: 5px;
+  border-radius: ${theme.borderRadius.round};
   background-color: ${theme.colors.dark};
 
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 20px;
-  gap: 12px;
+  padding: ${theme.spacing.md};
+  gap: ${theme.spacing.sm};
 
   .title {
-    font-weight: 700;
-    font-style: Bold;
+    font-weight: ${theme.fonts.weights.bold};
     line-height: 100%;
-    letter-spacing: 0%;
-    vertical-align: middle;
   }
 
   span {
-    color: white;
+    color: ${theme.colors.white};
   }
   button {
-    border: 1px solid white;
+    border: 1px solid ${theme.colors.white};
     padding: 13px 58px;
     border-radius: 25px;
-    color: white;
+    color: ${theme.colors.white};
     background-color: ${theme.colors.dark};
     cursor: pointer;
 
     &:hover {
-      transition: 200ms;
+      transition: ${theme.animations.speed.quick};
       color: ${theme.colors.primary};
       border-color: ${theme.colors.primary};
     }
