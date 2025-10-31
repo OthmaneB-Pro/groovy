@@ -1,25 +1,42 @@
-//@ts-nocheck
-import { theme } from "@/theme"
-import styled from "styled-components"
+import { theme } from "@/theme";
+import styled from "styled-components";
 import { getCategoryIcon } from "@/utils/icon";
 import { applyOpacity } from "@/utils/color";
 import { IS_SELECTED_COLOR } from "@/constants/categories";
+import { Category } from "@/types/Category";
+import { ComponentPropsWithoutRef } from "react";
 
+type ChipProps = Category &
+  ComponentPropsWithoutRef<"div"> & {
+    backgroundColor?: string;
+  };
 
-type ChipProps = any
+export const Chip = ({
+  label,
+  iconName,
+  color,
+  className,
+  isActive,
+  backgroundColor,
+  ...restProps
+}: ChipProps) => {
+  const defaultBorderColor = color
+    ? applyOpacity(color as string, 0.3)
+    : "transparent";
+  const defaultBackgroundColor = color
+    ? applyOpacity(color as string, 0.1)
+    : "transparent";
 
-export const Chip = ({ label, iconName, color, className, isActive, backgroundColor, ...restProps }: any) => {
-  const defaultBorderColor = color ? applyOpacity(color as string, 0.3) : "transparent"
-  const defaultBackgroundColor = color ? applyOpacity(color as string, 0.1) : "transparent"
+  const IconToDisplay = getCategoryIcon(iconName);
 
-  const IconToDisplay = getCategoryIcon(iconName)
+  const getActiveColor = () =>
+    backgroundColor ? backgroundColor : IS_SELECTED_COLOR.backgroundColor;
 
-  const getActiveColor = () => backgroundColor ? backgroundColor : IS_SELECTED_COLOR.backgroundColor
-
-  const colorApplied = isActive ? IS_SELECTED_COLOR.color : color
-  const backgroundColorApplied = isActive ? getActiveColor() : defaultBackgroundColor
-  const borderColorApplied = isActive ? getActiveColor() : defaultBorderColor
-
+  const colorApplied = isActive ? IS_SELECTED_COLOR.color : color;
+  const backgroundColorApplied = isActive
+    ? getActiveColor()
+    : defaultBackgroundColor;
+  const borderColorApplied = isActive ? getActiveColor() : defaultBorderColor;
 
   return (
     <ChipStyled
@@ -29,13 +46,21 @@ export const Chip = ({ label, iconName, color, className, isActive, backgroundCo
       className={className}
       {...restProps}
     >
-      {IconToDisplay && <div className="icon"><IconToDisplay color={color} /></div>}
+      {IconToDisplay && (
+        <div className="icon">
+          <IconToDisplay color={color} />
+        </div>
+      )}
       {label && <span className="label">{label}</span>}
     </ChipStyled>
-  )
-}
+  );
+};
 
-type ChipStyledProps = any
+type ChipStyledProps = {
+  borderColor?: string;
+  backgroundColor: string;
+  color?: string;
+};
 
 const ChipStyled = styled.div<ChipStyledProps>`
   border: ${({ borderColor }) => `1px solid ${borderColor}`};
@@ -61,7 +86,4 @@ const ChipStyled = styled.div<ChipStyledProps>`
     margin-left: 5px;
     color: ${({ color }) => color};
   }
-
-  
-
-`
+`;
