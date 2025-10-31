@@ -1,18 +1,21 @@
-import { BasketProduct } from "@/types/Product";
-import { EMPTY_PRODUCT } from "@/constants/product";
+import { BasketProduct, Product } from "@/types/Product"
+import { EMPTY_PRODUCT } from "../constants/product"
 
-export const EMPTY: BasketProduct[] = [];
+export const EMPTY: BasketProduct[] = []
 
-export const SMALL = [
+type BasketProductOmitted = Omit<BasketProduct, "price" | "isAvailable" | "isPublicised">
+
+export const SMALL: BasketProductOmitted[] = [
   {
     id: "1",
     title: "Burger Meal",
     imageSource: "images/burger1.png",
     quantity: 1,
   },
-];
+]
 
-export const MEDIUM = [
+export const MEDIUM: (Omit<BasketProduct, "price" | "isAvailable" | "isPublicised"> &
+  Pick<Product, "price">)[] = [
   {
     id: "1",
     imageSource: "images/burger1.png",
@@ -29,8 +32,7 @@ export const MEDIUM = [
   },
   {
     id: "3",
-    imageSource:
-      "https://www.ecomiam.com/images/Image/Frites-du-bistro-Code-Menlog.jpg",
+    imageSource: "https://www.ecomiam.com/images/Image/Frites-du-bistro-Code-Menlog.jpg",
     title: "Burger House",
     price: 5,
     quantity: 4,
@@ -42,9 +44,9 @@ export const MEDIUM = [
     price: 5,
     quantity: 4,
   },
-];
+]
 
-export const LARGE = [
+export const LARGE: BasketProduct[] = [
   {
     id: "1",
     imageSource: "/images/fries3.png",
@@ -135,9 +137,9 @@ export const LARGE = [
     isAvailable: true,
     isPublicised: false,
   },
-];
+]
 
-export const LARGE_WEIRD = [
+export const LARGE_WEIRD: BasketProduct[] = [
   {
     ...EMPTY_PRODUCT,
     quantity: 1,
@@ -232,7 +234,7 @@ export const LARGE_WEIRD = [
     isAvailable: true,
     isPublicised: false,
   },
-];
+]
 
 export const fakeBasket = {
   EMPTY,
@@ -240,4 +242,4 @@ export const fakeBasket = {
   MEDIUM,
   LARGE,
   LARGE_WEIRD,
-};
+}

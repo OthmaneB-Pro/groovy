@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { fakeMenu } from "@/fakeData/fakeMenu";
 import { deepClone } from "@/utils/array";
-//@ts-ignore
 import { syncBothMenus } from "@/api/product";
-import { MenuProduct } from "@/types/Product";
+import { Product } from "@/types/Product";
 
 export const useMenu = () => {
-  const [menu, setMenu] = useState<MenuProduct[] | undefined>(undefined);
+  const [menu, setMenu] = useState<Product[] | undefined>(undefined);
 
-  const handleAdd = (newProduct: MenuProduct, username: string) => {
+  const handleAdd = (newProduct: Product, username: string) => {
     if (menu) {
       const menuCopy = deepClone(menu);
       const menuUpdated = [newProduct, ...menuCopy];
@@ -29,7 +28,7 @@ export const useMenu = () => {
     }
   };
 
-  const handleEdit = (productBeingEdited: MenuProduct, username: string) => {
+  const handleEdit = (productBeingEdited: Product, username: string) => {
     if (menu) {
       const menuCopy = deepClone(menu);
       const indexOfProductToEdit = menu.findIndex(

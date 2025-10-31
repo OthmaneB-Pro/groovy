@@ -9,7 +9,7 @@ import { convertStringToBoolean } from "@/utils/string";
 import { useParams } from "react-router-dom";
 import BasketCard from "./BasketCard";
 import { checkIfProductIsClicked } from "../../MainLeftSide/Menu/helper";
-import { MenuProduct } from "@/types/Product";
+import { Product } from "@/types/Product";
 
 export default function BasketProducts() {
   const {
@@ -32,7 +32,7 @@ export default function BasketProducts() {
     handleDeleteBasketProduct(id, username);
   };
 
-  const getPrice = (menuProduct: MenuProduct) => {
+  const getPrice = (menuProduct: Product) => {
     return convertStringToBoolean(menuProduct.isAvailable)
       ? formatPrice(menuProduct.price)
       : BASKET_MESSAGE.NOT_AVAILABLE;

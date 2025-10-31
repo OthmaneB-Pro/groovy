@@ -1,10 +1,10 @@
 import { getMenu } from "@/api/product";
-import { BasketProductQuantity, MenuProduct } from "@/types/Product";
+import { BasketProductQuantity, Product } from "@/types/Product";
 import { getLocalStorage } from "@/utils/window";
 
 const intialiseMenu = async (
   username: string,
-  setMenu: React.Dispatch<React.SetStateAction<MenuProduct[] | undefined>>
+  setMenu: React.Dispatch<React.SetStateAction<Product[] | undefined>>
 ): Promise<void> => {
   const menuReceived = await getMenu(username);
   setMenu(menuReceived);
@@ -20,10 +20,10 @@ const intialiseBasket = (
 
 export const initialiseUserSession = async (
   username: string,
-  setMenu: React.Dispatch<React.SetStateAction<MenuProduct[] | undefined>>,
+  setMenu: React.Dispatch<React.SetStateAction<Product[] | undefined>>,
   setBasket: React.Dispatch<React.SetStateAction<BasketProductQuantity[]>>
 ): Promise<void> => {
-  if(!username) return
+  if (!username) return;
   await intialiseMenu(username, setMenu);
   intialiseBasket(username, setBasket);
 };

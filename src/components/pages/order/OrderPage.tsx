@@ -6,7 +6,7 @@ import { initialiseUserSession } from "./helpers/initialiseUserSession";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useOrderContext } from "@/context/OrderContext";
-import { ModalShortCuts } from "@/components/pages/order/ModalShortCuts";
+import { ModalShortCuts } from "@/components/pages/order/Main/MainLeftSide/Admin/ModalShortCuts";
 import { useCreateKeyboardShortcuts } from "@/hooks/useCreateKeyboardShortcut";
 import { isMac } from "@/utils/window";
 
