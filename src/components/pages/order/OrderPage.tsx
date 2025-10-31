@@ -1,16 +1,27 @@
 import styled from "styled-components";
 import { theme } from "@/theme";
-//@ts-ignore
 import Main from "./Main/Main";
 import Navbar from "./Navbar/Navbar";
 import { initialiseUserSession } from "./helpers/initialiseUserSession";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useOrderContext } from "@/context/OrderContext";
+import { ModalShortCuts } from "@/components/pages/order/ModalShortCuts";
+import { useCreateKeyboardShortcuts } from "@/hooks/useCreateKeyboardShortcut";
+import { isMac } from "@/utils/window";
 
 export default function OrderPage() {
   const { username } = useParams();
-  const { setMenu, setBasket } = useOrderContext();
+  const { setMenu, setBasket, setIsModeAdmin, setIsCollapsed, isModeAdmin } =
+    useOrderContext();
+  const [isModal, setIsModal] = useState(true);
+
+  const commandKey = isMac() ? "meta" : "ctrl";
+
+  useCreateKeyboardShortcuts({
+    [`${commandKey}+i`]: () => setIsModeAdmin((prev) => !prev),
+    [`${commandKey}+j`]: () => setIsCollapsed((prev) => !prev),
+  });
 
   useEffect(() => {
     username && initialiseUserSession(username, setMenu, setBasket);
@@ -18,6 +29,9 @@ export default function OrderPage() {
 
   return (
     <OrderPageStyled>
+      {isModeAdmin && isModal && (
+        <ModalShortCuts onClose={() => setIsModal(false)} />
+      )}
       <div className="container">
         <Navbar />
         <Main />
