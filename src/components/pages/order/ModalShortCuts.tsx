@@ -1,13 +1,17 @@
 import { theme } from "@/theme";
 import styled from "styled-components";
 
-export const ModalShortCuts = () => {
+type ModalShortCutsProps = {
+  onClose?: React.MouseEventHandler<HTMLButtonElement>;
+};
+
+export const ModalShortCuts = ({ onClose }: ModalShortCutsProps) => {
   return (
     <ModalShortCutsStyled>
       <span className="title">💡 Pour aller plus vite :</span>
       <span>⌘ + i : Toggle "mode" admin</span>
       <span>⌘ + j : Toggle "panel" admin</span>
-      <button>Ne plus afficher</button>
+      <button onClick={onClose}>Ne plus afficher</button>
     </ModalShortCutsStyled>
   );
 };
