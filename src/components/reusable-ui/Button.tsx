@@ -9,27 +9,26 @@ type ButtonProps = {
   label: string;
   Icon?: JSX.Element;
   version?: ButtonVersion;
-  isLoading? : boolean;
+  isLoading?: boolean;
 } & ComponentProps<"button">;
 
 export default function Button({
+  isLoading,
   label,
   Icon,
   className,
   version = "normal",
   onClick,
-  disabled,
-  isLoading,
 }: ButtonProps) {
   return (
     <ButtonStyled
       className={className}
       version={version}
       onClick={onClick}
-      disabled={disabled}
+      disabled={isLoading}
     >
       {isLoading ? (
-        <Loader />
+        <Loader color={theme.colors.white} />
       ) : (
         <>
           <span>{label}</span>
@@ -40,9 +39,7 @@ export default function Button({
   );
 }
 
-type ButtonStyledProps = {
-  version: ButtonVersion;
-};
+type ButtonStyledProps = { version: ButtonVersion };
 
 const ButtonStyled = styled.button<ButtonStyledProps>`
   ${({ version }) => extraStyle[version]};
@@ -80,7 +77,7 @@ const extraStyleNormal = css`
   }
 
   &:disabled {
-    opacity: 50%;
+    opacity: 100%;
     cursor: not-allowed;
     z-index: 2;
   }

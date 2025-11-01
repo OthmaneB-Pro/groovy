@@ -1,4 +1,3 @@
-//@ts-nocheck
 import styled from "styled-components";
 import { useOrderContext } from "@/context/OrderContext";
 import { theme } from "@/theme";
@@ -34,11 +33,9 @@ export default function CatalogProducts() {
     categories,
     categoryAll,
   } = useOrderContext();
-  // state
 
   const { username } = useParams();
 
-  // comportements (gestionnaires d'événement ou "event handlers")
   const handleCardDelete = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     idProductToDelete: string
@@ -63,7 +60,6 @@ export default function CatalogProducts() {
     ? "card-container is-hoverable"
     : "card-container";
 
-  // affichage
   if (menu === undefined) return <LoadingMessage />;
 
   if (isEmpty(menu)) {

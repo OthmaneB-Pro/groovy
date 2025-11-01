@@ -25,7 +25,9 @@ const intialiseCategories = async (
   setCategories: React.Dispatch<React.SetStateAction<Category[]>>
 ) => {
   const categoriesReceived = await getCategories(username);
-  setCategories(categoriesReceived as Category[]);
+  if (categoriesReceived) {
+    setCategories(categoriesReceived as Category[]);
+  }
 };
 
 export const initialiseUserSession = async (
