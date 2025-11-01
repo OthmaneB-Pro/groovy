@@ -20,7 +20,7 @@ const colors = {
   rose: "#FF99C8",
   purple: "#A01FF0",
   yellow: "#FFC300",
-};
+} as const;
 
 export type Color = typeof colors;
 
@@ -61,6 +61,10 @@ const fonts = {
     openSans: '"Open Sans", sans-serif',
   },
 };
+
+export type FontSizeKey = keyof typeof fonts.size;
+
+
 const gridUnit = 8;
 const borderRadius = {
   subtle: 1,

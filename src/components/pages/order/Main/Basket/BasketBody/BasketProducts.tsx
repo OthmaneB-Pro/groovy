@@ -8,7 +8,7 @@ import { formatPrice } from "@/utils/maths";
 import { convertStringToBoolean } from "@/utils/string";
 import { useParams } from "react-router-dom";
 import BasketCard from "./BasketCard";
-import { checkIfProductIsClicked } from "../../MainLeftSide/Menu/helper";
+import { checkIfProductIsClicked } from "../../MainLeftSide/CatalogProducts/helper";
 import { Product } from "@/types/Product";
 
 export default function BasketProducts() {
