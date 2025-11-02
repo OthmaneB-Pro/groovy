@@ -4,13 +4,11 @@ import SelectInput from "@/components/reusable-ui/SelectInput";
 import styled from "styled-components";
 import { getInputTextsConfig, getSelectInputConfig } from "./inputConfig";
 import { Product } from "@/types/Product";
+import { FormEvents } from "@/types/FormEvents";
 
 export type InputsProps = {
   product: Product;
-  onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLSelectElement>;
-  onFocus?: React.FocusEventHandler<HTMLInputElement | HTMLSelectElement>;
-  onBlur?: React.FocusEventHandler<HTMLInputElement | HTMLSelectElement>;
-};
+} & FormEvents;
 
 export const Inputs = React.forwardRef<HTMLInputElement, InputsProps>(
   ({ product, onChange, onFocus, onBlur }, ref) => {
