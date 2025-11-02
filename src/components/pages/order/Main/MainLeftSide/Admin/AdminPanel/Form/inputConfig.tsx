@@ -3,9 +3,11 @@ import { BsFillCameraFill } from "react-icons/bs";
 import { MdOutlineEuro } from "react-icons/md";
 import { FiPackage } from "react-icons/fi";
 import { GoMegaphone } from "react-icons/go";
-import { isAvailableOptions, isPublicisedOptions } from "@/constants/select";
+import {
+  isAvailableOptions,
+  isPublicisedOptions,
+} from "@/constants/select";
 import { Product } from "@/types/Product";
-import { IoPricetag } from "react-icons/io5";
 
 export const getInputTextsConfig = (newProduct: Product) => [
   {
@@ -29,15 +31,6 @@ export const getInputTextsConfig = (newProduct: Product) => [
   },
   {
     id: "2",
-    name: "categories",
-    value: newProduct.categories,
-    placeholder: "Catégorie (ex: Boisson)",
-    Icon: <IoPricetag />,
-    version: "minimalist",
-    className: "categories",
-  },
-  {
-    id: "3",
     name: "price",
     value: newProduct.price ? newProduct.price : "",
     placeholder: "Prix",
@@ -49,7 +42,7 @@ export const getInputTextsConfig = (newProduct: Product) => [
 
 export const getSelectInputConfig = (newProduct: Product) => [
   {
-    id: "4",
+    id: "3",
     name: "isAvailable",
     value: newProduct.isAvailable.toString(),
     options: isAvailableOptions,
@@ -57,7 +50,7 @@ export const getSelectInputConfig = (newProduct: Product) => [
     className: "is-available",
   },
   {
-    id: "5",
+    id: "4",
     name: "isPublicised",
     value: newProduct.isPublicised.toString(),
     options: isPublicisedOptions,
