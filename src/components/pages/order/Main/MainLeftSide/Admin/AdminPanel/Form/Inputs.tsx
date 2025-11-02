@@ -47,7 +47,7 @@ const InputsStyled = styled.div`
 
   display: grid;
   grid-template-rows: repeat(3, 1fr);
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   grid-row-gap: 8px;
   grid-column-gap: 8px;
 
@@ -55,9 +55,18 @@ const InputsStyled = styled.div`
     grid-area: 1/1/2/4;
   }
   .image-source {
-    grid-area: 2/1/3/4;
+    grid-area: 1/4/2/7;
+  }
+  .categories {
+    grid-area: 2/1/3/7;
   }
   .price {
-    grid-area: 3/1/4/2;
+    grid-area: 3/1/4/3;
+  }
+  .is-available {
+    grid-area: 3/3/4/5;
+  }
+  .is-publicised {
+    grid-area: 3/5/4/7;
   }
 `;
