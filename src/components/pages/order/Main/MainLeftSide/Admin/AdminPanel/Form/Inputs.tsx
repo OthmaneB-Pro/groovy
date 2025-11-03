@@ -5,8 +5,12 @@ import styled from "styled-components";
 import { getInputTextsConfig, getSelectInputConfig } from "./inputConfig";
 import { Product } from "@/types/Product";
 import { FormEvents } from "@/types/FormEvents";
-import { isMultiSelectOptions } from "@/constants/select";
 import { MultiSelect } from "@/components/reusable-ui/MultiSelect.tsx/MultiSelect";
+import { useOrderContext } from "@/context/OrderContext";
+import { IoPricetag } from "react-icons/io5";
+import { MultiValue } from "react-select";
+import { Category } from "@/types/Category";
+import { ADMIN_TAB_LABEL } from "@/constants/tabs";
 
 export type InputsProps = {
   product: Product;
@@ -14,8 +18,21 @@ export type InputsProps = {
 
 export const Inputs = React.forwardRef<HTMLInputElement, InputsProps>(
   ({ product, onChange, onFocus, onBlur }, ref) => {
+    const { categories, productSelected, newProduct, currentTabSelected } =
+      useOrderContext();
+
     const inputTexts = getInputTextsConfig(product);
     const inputSelects = getSelectInputConfig(product);
+
+    const onChangeMulti = (selectedCategories: MultiValue<Category>) => {
+      const eventMulti = {
+        target: {
+          name: "categories",
+          value: selectedCategories,
+        },
+      } as unknown as React.ChangeEvent<HTMLInputElement | HTMLSelectElement>;
+      onChange && onChange(eventMulti);
+    };
 
     return (
       <InputsStyled>
@@ -37,7 +54,20 @@ export const Inputs = React.forwardRef<HTMLInputElement, InputsProps>(
           />
         </div>
         <div className="categories">
-          <MultiSelect menuPlacement="auto" options={isMultiSelectOptions} />
+          <MultiSelect
+            menuPlacement="auto"
+            options={categories}
+            onChange={onChangeMulti}
+            customIcon={IoPricetag}
+            placeholder="Catégorie (ex: Boisson)"
+            value={
+              currentTabSelected === ADMIN_TAB_LABEL.ADD
+                ? newProduct.categories
+                : productSelected.categories
+            }
+            onFocus={onFocus}
+            onBlur={onBlur}
+          />
         </div>
         <TextInput
           {...inputTexts[2]}
