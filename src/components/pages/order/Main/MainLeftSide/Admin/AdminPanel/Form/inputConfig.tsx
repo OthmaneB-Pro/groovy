@@ -3,7 +3,10 @@ import { BsFillCameraFill } from "react-icons/bs";
 import { MdOutlineEuro } from "react-icons/md";
 import { FiPackage } from "react-icons/fi";
 import { GoMegaphone } from "react-icons/go";
-import { isAvailableOptions, isPublicisedOptions } from "@/constants/select";
+import {
+  isAvailableOptions,
+  isPublicisedOptions,
+} from "@/constants/select";
 import { Product } from "@/types/Product";
 
 export const getInputTextsConfig = (newProduct: Product) => [
