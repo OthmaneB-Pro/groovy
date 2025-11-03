@@ -37,7 +37,7 @@ export const Inputs = React.forwardRef<HTMLInputElement, InputsProps>(
           />
         </div>
         <div className="categories">
-          <MultiSelect options={isMultiSelectOptions} />
+          <MultiSelect menuPlacement="auto" options={isMultiSelectOptions} />
         </div>
         <TextInput
           {...inputTexts[2]}
