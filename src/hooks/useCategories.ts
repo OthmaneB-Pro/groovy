@@ -5,7 +5,7 @@ import { CATEGORY_ALL } from "@/constants/categories";
 import { CATEGORY_MENUS } from "@/constants/menus";
 import { updateCategoriesInDB } from "@/api/categories";
 import { fakeCategories } from "@/fakeData/fakeCategories";
-// import { syncBothMenus } from "@/api/product";
+// import { updateMenus } from "@/api/product";
 import { Category } from "@/types/Category";
 
 export const useCategories = () => {
@@ -35,7 +35,7 @@ export const useCategories = () => {
     );
 
     setCategories(menuUpdated);
-    // syncBothMenus(username, menuUpdated)
+    // updateMenus(username, menuUpdated)
   };
 
   const toggleAllCategories = () => {
@@ -96,12 +96,12 @@ export const useCategories = () => {
 
     // 3. update du state
     setCategories(menuCopy);
-    // syncBothMenus(username, menuCopy)
+    // updateMenus(username, menuCopy)
   };
 
   const resetCategories = (username: string) => {
     setCategories(fakeCategories.SMALL);
-    // syncBothMenus(username, fakeMenu.SMALL)
+    // updateMenus(username, fakeMenu.SMALL)
   };
 
   return {

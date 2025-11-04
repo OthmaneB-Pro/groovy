@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { fakeMenu } from "@/fakeData/fakeMenu";
 import { deepClone } from "@/utils/array";
-import { syncBothMenus } from "@/api/product";
+import { updateMenus } from "@/api/product";
 import { Product } from "@/types/Product";
 
 export const useMenu = () => {
@@ -12,7 +12,7 @@ export const useMenu = () => {
       const menuCopy = deepClone(menu);
       const menuUpdated = [newProduct, ...menuCopy];
       setMenu(menuUpdated);
-      syncBothMenus(username, menuUpdated);
+      updateMenus(username, menuUpdated);
     }
   };
 
@@ -24,7 +24,7 @@ export const useMenu = () => {
       );
       console.log("menuUpdated: ", menuUpdated);
       setMenu(menuUpdated);
-      syncBothMenus(username, menuUpdated);
+      updateMenus(username, menuUpdated);
     }
   };
 
@@ -36,13 +36,13 @@ export const useMenu = () => {
       );
       menuCopy[indexOfProductToEdit] = productBeingEdited;
       setMenu(menuCopy);
-      syncBothMenus(username, menuCopy);
+      updateMenus(username, menuCopy);
     }
   };
 
   const resetMenu = (username: string) => {
     setMenu(fakeMenu.LARGE);
-    syncBothMenus(username, fakeMenu.LARGE);
+    updateMenus(username, fakeMenu.LARGE);
   };
 
   return { menu, setMenu, handleAdd, handleDelete, handleEdit, resetMenu };

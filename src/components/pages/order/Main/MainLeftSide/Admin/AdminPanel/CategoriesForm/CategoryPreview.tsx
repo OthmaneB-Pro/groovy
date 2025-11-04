@@ -1,12 +1,10 @@
-import styled from "styled-components"
-import { theme } from "@/theme"
-import { fadeIn } from "@/theme/animations"
-import { Category } from "@/types/Category"
-import { Chip } from "@/components/reusable-ui/Chip"
+import styled from "styled-components";
+import { theme } from "@/theme";
+import { fadeIn } from "@/theme/animations";
+import { Category } from "@/types/Category";
+import { Chip } from "@/components/reusable-ui/Chip";
 
-// const DEFAULT_COLOR = "#FFF"
-
-type CategoryPreviewProps = Category & { className?: string }
+type CategoryPreviewProps = Category & { className?: string };
 
 export default function CategoryPreview({
   label,
@@ -14,18 +12,17 @@ export default function CategoryPreview({
   iconName,
   className,
 }: CategoryPreviewProps) {
-  // let defaultBorderColor = DEFAULT_COLOR
-  // let defaultBackgroundColor = DEFAULT_COLOR
-
-  // if (color && isHexColor(color)) defaultBorderColor = applyOpacity(color as string, 0.3) ?? "red"
-  // if (color && isHexColor(color))
-  //   defaultBackgroundColor = applyOpacity(color as string, 0.1) ?? "red"
-
   return (
     <ImagePreviewStyled className={className}>
       {label !== "" || iconName ? (
         <div className="preview-container-with-label">
-          <Chip id={label} label={label} color={color} className="chip" iconName={iconName} />
+          <Chip
+            id={label}
+            label={label}
+            color={color}
+            className="chip"
+            iconName={iconName}
+          />
         </div>
       ) : (
         <div className="empty-image">
@@ -33,7 +30,7 @@ export default function CategoryPreview({
         </div>
       )}
     </ImagePreviewStyled>
-  )
+  );
 }
 
 const ImagePreviewStyled = styled.div`
@@ -105,4 +102,4 @@ const ImagePreviewStyled = styled.div`
     span {
     }
   }
-`
+`;
