@@ -2,18 +2,22 @@ import Button from "@/components/reusable-ui/Button";
 import SubmitMessage from "./SubmitMessage";
 
 type SubmitButtonProps = {
+  label?: string;
   isSubmitted: boolean;
+  submitMessage?: string;
 };
 
-export default function SubmitButton({ isSubmitted }: SubmitButtonProps) {
+export default function SubmitButton({
+  isSubmitted,
+  label = "",
+  submitMessage,
+}: SubmitButtonProps) {
   return (
     <>
-      <Button
-        className="submit-button"
-        label={"Ajouter un nouveau produit au menu"}
-        version="success"
-      />
-      {isSubmitted && <SubmitMessage />}
+      {label && (
+        <Button className="submit-button" label={label} version="success" />
+      )}
+      {isSubmitted && <SubmitMessage label={submitMessage} />}
     </>
   );
 }
