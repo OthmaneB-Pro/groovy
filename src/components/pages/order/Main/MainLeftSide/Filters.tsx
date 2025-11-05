@@ -75,7 +75,7 @@ const FiltersStyled = styled.div`
   box-shadow: ${theme.shadows.medium};
   position: sticky;
   top: 20px;
-  z-index: 10;
+  z-index: 1;
 
   .filter {
     cursor: pointer;

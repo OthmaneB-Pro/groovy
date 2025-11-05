@@ -14,6 +14,7 @@ import { useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { EMPTY_CATEGORY } from "@/constants/categories";
 import z from "zod";
+import { displayToastNotification } from "@/utils/toast";
 
 const categoryIconSchema = z.enum([
   "sandwich",
@@ -62,9 +63,7 @@ export default function CategoryAddForm() {
     const result = categoryFormSchemaStrict.safeParse(newCategoryToAdd);
     if (!result.success) {
       result.error.issues.map((error) => {
-        alert(`${error.message}`);
-        // remplacer le message d'alert avec la fonction ci-dessous que hje n'ai pas eu le temps de définir
-        // displayToastNotification(`${error.message}`, "error", { position: "bottom-right" })
+        displayToastNotification(`${error.message}`, "error")
       });
       return;
     }

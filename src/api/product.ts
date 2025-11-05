@@ -1,4 +1,4 @@
-import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "./firebase-config";
 import { Product } from "@/types/Product";
 
@@ -8,7 +8,6 @@ export const updateMenus = async (userId: string, menuUpdated: Product[]) => {
   const nourriture = {
     menu: menuUpdated,
   };
-  setDoc(cachette, nourriture);
   await updateDoc(cachette, nourriture);
 };
 
