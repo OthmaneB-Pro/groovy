@@ -1,4 +1,10 @@
-import { createContext, PropsWithChildren, useContext, useRef, useState } from "react";
+import {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useRef,
+  useState,
+} from "react";
 import { useMenu } from "@/hooks/useMenu";
 import { useBasket } from "@/hooks/useBasket";
 import { findObjectById } from "@/utils/array";
@@ -7,6 +13,7 @@ import { BasketProductQuantity, Product } from "@/types/Product";
 import { ADMIN_TAB_LABEL } from "@/constants/tabs";
 import { useCategories } from "@/hooks/useCategories";
 import { Category } from "@/types/Category";
+import { EMPTY_CATEGORY } from "@/constants/categories";
 
 type OrderContextType = {
   isModeAdmin: boolean;
@@ -42,6 +49,8 @@ type OrderContextType = {
   toggleAllCategories: () => void;
   toggleMenusCategory: () => void;
   categoryMenus: Category;
+  newCategory: Category;
+  setNewCategory: React.Dispatch<React.SetStateAction<Category>>;
 };
 
 const OrderContext = createContext<OrderContextType | undefined>(undefined);
@@ -53,6 +62,8 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
     ADMIN_TAB_LABEL.ADD
   );
   const [newProduct, setNewProduct] = useState(EMPTY_PRODUCT);
+  const [newCategory, setNewCategory] = useState(EMPTY_CATEGORY);
+
   const [productSelected, setProductSelected] =
     useState<Product>(EMPTY_PRODUCT);
   const titleEditRef = useRef<HTMLInputElement>(null);
@@ -112,6 +123,8 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
     toggleAllCategories,
     toggleMenusCategory,
     categoryMenus,
+    newCategory,
+    setNewCategory,
   };
 
   return (

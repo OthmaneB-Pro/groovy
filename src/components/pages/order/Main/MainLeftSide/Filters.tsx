@@ -67,12 +67,15 @@ const FiltersStyled = styled.div`
   padding: 20px 40px;
   margin: 50px 80px 30px;
   overflow-x: scroll;
-  scrollbar-width: none; 
-  -ms-overflow-style: none; 
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   background-color: transparent;
   background-color: ${theme.colors.white};
   border-radius: ${theme.borderRadius.extraRound};
   box-shadow: ${theme.shadows.medium};
+  position: sticky;
+  top: 20px;
+  z-index: 1;
 
   .filter {
     cursor: pointer;

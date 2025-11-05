@@ -1,15 +1,14 @@
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "./firebase-config";
 import { Product } from "@/types/Product";
 
-export const syncBothMenus = (userId: string, menuUpdated: Product[]) => {
+export const updateMenus = async (userId: string, menuUpdated: Product[]) => {
   const cachette = doc(db, "users", userId);
 
   const nourriture = {
-    username: userId,
     menu: menuUpdated,
   };
-  setDoc(cachette, nourriture);
+  await updateDoc(cachette, nourriture);
 };
 
 export const getMenu = async (

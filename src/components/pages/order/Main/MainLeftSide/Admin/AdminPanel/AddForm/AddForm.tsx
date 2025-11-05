@@ -35,7 +35,10 @@ export default function AddForm() {
 
   return (
     <Form product={newProduct} onSubmit={handleSubmit} onChange={handleChange}>
-      <SubmitButton isSubmitted={isSubmitted} />
+      <SubmitButton
+        label="Ajouter un nouveau produit au menu"
+        isSubmitted={isSubmitted}
+      />
     </Form>
   );
 }

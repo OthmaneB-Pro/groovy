@@ -5,6 +5,8 @@ import HintMessage from "./AdminPanel/EditForm/HintMessage";
 import AddForm from "./AdminPanel/AddForm/AddForm";
 import { TabType } from "@/types/Tabs";
 import { ADMIN_TAB_LABEL } from "@/constants/tabs";
+import { IoPricetag } from "react-icons/io5";
+import CategoryAddForm from "./AdminPanel/CategoriesForm/CategoryAddForm";
 
 export const getTabsConfig = (hasAlreadyBeenClicked?: boolean): TabType[] => [
   {
@@ -18,6 +20,12 @@ export const getTabsConfig = (hasAlreadyBeenClicked?: boolean): TabType[] => [
     label: "Modifier un produit",
     Icon: <MdModeEditOutline />,
     Content: hasAlreadyBeenClicked ? <EditForm /> : <HintMessage />,
+  },
+  {
+    index: ADMIN_TAB_LABEL.CATEGORY_ADD,
+    label: "Créer catégorie",
+    Icon: <IoPricetag />,
+    Content: <CategoryAddForm />,
   },
 ];
 
