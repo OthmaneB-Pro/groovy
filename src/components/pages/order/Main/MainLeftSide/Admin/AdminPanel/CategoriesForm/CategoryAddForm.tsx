@@ -63,7 +63,7 @@ export default function CategoryAddForm() {
     const result = categoryFormSchemaStrict.safeParse(newCategoryToAdd);
     if (!result.success) {
       result.error.issues.map((error) => {
-        displayToastNotification(`${error.message}`, "error")
+        displayToastNotification(`${error.message}`, "error");
       });
       return;
     }
