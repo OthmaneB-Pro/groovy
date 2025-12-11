@@ -2,7 +2,7 @@ import { Chip } from "@/components/reusable-ui/Chip";
 import { useOrderContext } from "@/context/OrderContext";
 import styled from "styled-components";
 import { theme } from "@/theme";
-import { CATEGORY_ALL } from "@/constants/categories";
+import { CATEGORY_ALL, DEFAULT_CATEGORY } from "@/constants/categories";
 import { useParams } from "react-router-dom";
 import { Category } from "@/types/Category";
 import { CATEGORY_MENUS } from "@/constants/menus";
@@ -15,6 +15,7 @@ export const Filters = () => {
     categories,
     toggleCategoryById,
     categoryAll,
+    categoryMenus,
     toggleAllCategories,
     toggleMenusCategory,
   } = useOrderContext();
@@ -43,6 +44,11 @@ export const Filters = () => {
         className="filter"
         {...categoryAll}
         onClick={() => toggleFilter(CATEGORY_ALL.id)}
+      />
+      <Chip
+        className="filter"
+        {...categoryMenus}
+        onClick={() => toggleFilter(DEFAULT_CATEGORY.id)}
       />
       {categories.map((category) => {
         return (
