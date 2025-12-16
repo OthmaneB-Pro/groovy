@@ -48,7 +48,7 @@ export const Filters = () => {
       <Chip
         className="filter"
         {...categoryMenus}
-        onClick={() => toggleFilter(DEFAULT_CATEGORY.id)}
+        onClick={() => toggleFilter(CATEGORY_MENUS.id)}
       />
       {categories.map((category) => {
         return (
