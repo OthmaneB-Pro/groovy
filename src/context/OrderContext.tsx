@@ -14,6 +14,8 @@ import { ADMIN_TAB_LABEL } from "@/constants/tabs";
 import { useCategories } from "@/hooks/useCategories";
 import { Category } from "@/types/Category";
 import { EMPTY_CATEGORY } from "@/constants/categories";
+import { EMPTY_MENU } from "@/constants/menus";
+import { Menu } from "@/types/Menu";
 
 type OrderContextType = {
   isModeAdmin: boolean;
@@ -51,6 +53,8 @@ type OrderContextType = {
   categoryMenus: Category;
   newCategory: Category;
   setNewCategory: React.Dispatch<React.SetStateAction<Category>>;
+  newMenu: Menu;
+  setNewMenu: React.Dispatch<React.SetStateAction<Menu>>;
 };
 
 const OrderContext = createContext<OrderContextType | undefined>(undefined);
@@ -63,6 +67,7 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
   );
   const [newProduct, setNewProduct] = useState(EMPTY_PRODUCT);
   const [newCategory, setNewCategory] = useState(EMPTY_CATEGORY);
+  const [newMenu, setNewMenu] = useState(EMPTY_MENU);
 
   const [productSelected, setProductSelected] =
     useState<Product>(EMPTY_PRODUCT);
@@ -125,6 +130,8 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
     categoryMenus,
     newCategory,
     setNewCategory,
+    newMenu,
+    setNewMenu,
   };
 
   return (
