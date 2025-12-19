@@ -5,7 +5,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { useMenu } from "@/hooks/useMenu";
+import { useProduct } from "@/hooks/useProduct";
 import { useBasket } from "@/hooks/useBasket";
 import { findObjectById } from "@/utils/array";
 import { EMPTY_PRODUCT } from "@/constants/product";
@@ -16,6 +16,7 @@ import { Category } from "@/types/Category";
 import { EMPTY_CATEGORY } from "@/constants/categories";
 import { EMPTY_MENU } from "@/constants/menus";
 import { Menu } from "@/types/Menu";
+import { useMenu } from "@/hooks/useMenu";
 
 type OrderContextType = {
   isModeAdmin: boolean;
@@ -55,6 +56,7 @@ type OrderContextType = {
   setNewCategory: React.Dispatch<React.SetStateAction<Category>>;
   newMenu: Menu;
   setNewMenu: React.Dispatch<React.SetStateAction<Menu>>;
+  handleAddMenu : (newProduct: Menu) => void;
 };
 
 const OrderContext = createContext<OrderContextType | undefined>(undefined);
@@ -73,9 +75,10 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
     useState<Product>(EMPTY_PRODUCT);
   const titleEditRef = useRef<HTMLInputElement>(null);
   const { menu, setMenu, handleAdd, handleDelete, handleEdit, resetMenu } =
-    useMenu();
+    useProduct();
   const { basket, setBasket, handleAddToBasket, handleDeleteBasketProduct } =
     useBasket();
+  const {handleAddMenu} = useMenu()
   const {
     categories,
     setCategories,
@@ -132,6 +135,7 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
     setNewCategory,
     newMenu,
     setNewMenu,
+    handleAddMenu,
   };
 
   return (

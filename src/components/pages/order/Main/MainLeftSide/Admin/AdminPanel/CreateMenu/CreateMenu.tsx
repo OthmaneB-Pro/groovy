@@ -3,11 +3,12 @@ import SubmitButton from "../AddForm/SubmitButton";
 import { useOrderContext } from "@/context/OrderContext";
 import { useSuccessMessage } from "@/hooks/useSuccessMessage";
 import { replaceFrenchCommaWithDot } from "@/utils/maths";
-import { EMPTY_PRODUCT } from "@/constants/product";
 import Form from "../Form/Form";
+import { fakeCategories } from "@/fakeData/fakeCategories";
+import { EMPTY_MENU } from "@/constants/menus";
 
 export default function CreateMenu() {
-  const { handleAdd, newProduct, setNewProduct } = useOrderContext();
+  const { handleAddMenu, newMenu, setNewMenu } = useOrderContext();
   const { isSubmitted, displaySuccessMessage } = useSuccessMessage();
 
   const { username } = useParams();
@@ -15,13 +16,25 @@ export default function CreateMenu() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!username) return;
-    const newProductToAdd = {
-      ...newProduct,
+    const newMenuToAdd = {
+      ...newMenu,
       id: crypto.randomUUID(),
-      price: replaceFrenchCommaWithDot(newProduct.price),
+      price: replaceFrenchCommaWithDot(newMenu.price),
+      products: [
+        {
+          id: "1",
+          imageSource: "https://www.tacosgratines.com/produit/2093_105.png",
+          title: "Burger Maison",
+          price: 5.297,
+          quantity: 0,
+          isAvailable: true,
+          isPublicised: false,
+          categories: [fakeCategories.LARGE[0]],
+        },
+      ],
     };
-    handleAdd(newProductToAdd, username);
-    setNewProduct(EMPTY_PRODUCT);
+    handleAddMenu(newMenuToAdd);
+    setNewMenu(EMPTY_MENU);
 
     displaySuccessMessage();
   };
@@ -30,11 +43,11 @@ export default function CreateMenu() {
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = event.target;
-    setNewProduct({ ...newProduct, [name]: value });
+    setNewMenu({ ...newMenu, [name]: value });
   };
 
   return (
-    <Form product={newProduct} onSubmit={handleSubmit} onChange={handleChange}>
+    <Form product={newMenu} onSubmit={handleSubmit} onChange={handleChange}>
       <SubmitButton
         label="Ajouter un nouveau produit au menu"
         isSubmitted={isSubmitted}
