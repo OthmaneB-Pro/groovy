@@ -5,7 +5,7 @@ import { useSuccessMessage } from "@/hooks/useSuccessMessage";
 import { replaceFrenchCommaWithDot } from "@/utils/maths";
 import Form from "../Form/Form";
 import { fakeCategories } from "@/fakeData/fakeCategories";
-import { EMPTY_MENU } from "@/constants/menus";
+import { CATEGORY_MENUS, EMPTY_MENU } from "@/constants/menus";
 
 export default function CreateMenu() {
   const { handleAddMenu, newMenu, setNewMenu } = useOrderContext();
@@ -20,6 +20,7 @@ export default function CreateMenu() {
       ...newMenu,
       id: crypto.randomUUID(),
       price: replaceFrenchCommaWithDot(newMenu.price),
+      categories: [CATEGORY_MENUS],
       products: [
         {
           id: "1",
@@ -33,6 +34,7 @@ export default function CreateMenu() {
         },
       ],
     };
+    console.log("newMenuToAdd : ", newMenuToAdd);
     handleAddMenu(newMenuToAdd);
     setNewMenu(EMPTY_MENU);
 

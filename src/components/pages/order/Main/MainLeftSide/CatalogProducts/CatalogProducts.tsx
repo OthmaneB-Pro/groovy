@@ -18,6 +18,7 @@ import RibbonAnimated, { ribbonAnimation } from "./RibbonAnimated";
 import { useParams } from "react-router-dom";
 import EmptyCatalogProductsAdmin from "./EmptyCatalogProductsAdmin";
 import EmptyCatalogProductsClient from "./EmptyCatalogProductsClient";
+import { CATEGORY_MENUS } from "@/constants/menus";
 
 export default function CatalogProducts() {
   const {
@@ -32,6 +33,8 @@ export default function CatalogProducts() {
     handleProductSelected,
     categories,
     categoryAll,
+    categoryMenus,
+    menuPack,
   } = useOrderContext();
 
   const { username } = useParams();
@@ -77,41 +80,65 @@ export default function CatalogProducts() {
 
   return (
     <TransitionGroup component={CatalogProductsStyled} className="menu">
-      {productsToDisplay.map(
-        ({
-          id,
-          title,
-          imageSource,
-          price,
-          isAvailable,
-          isPublicised,
-          categories,
-        }) => {
-          return (
-            <CSSTransition classNames={"menu-animation"} key={id} timeout={300}>
+      {categoryMenus.isActive
+        ? (menuPack ?? []).map((menu) => (
+            <CSSTransition
+              key={menu.id}
+              classNames="menu-animation"
+              timeout={300}
+            >
               <div className={cardContainerClassName}>
-                {convertStringToBoolean(isPublicised) && <RibbonAnimated />}
                 <Card
-                  title={title}
-                  imageSource={imageSource ? imageSource : IMAGE_COMING_SOON}
-                  leftDescription={formatPrice(price)}
+                  title={menu.title}
+                  imageSource={menu.imageSource || IMAGE_COMING_SOON}
+                  leftDescription={formatPrice(menu.price)}
                   hasDeleteButton={isModeAdmin}
-                  onDelete={(event) => handleCardDelete(event, id)}
-                  onClick={() => handleProductSelected(id)}
+                  onDelete={(event) => handleCardDelete(event, menu.id)}
+                  onClick={() => handleProductSelected(menu.id)}
                   isHoverable={isModeAdmin}
-                  isSelected={checkIfProductIsClicked(id, productSelected.id)}
-                  onAdd={(event) => handleAddButton(event, id)}
                   overlapImageSource={IMAGE_NO_STOCK}
-                  isOverlapImageVisible={
-                    convertStringToBoolean(isAvailable) === false
-                  }
-                  categories={categories}
+                  isSelected={checkIfProductIsClicked(
+                    menu.id,
+                    productSelected.id
+                  )}
+                  categories={[CATEGORY_MENUS]}
                 />
               </div>
             </CSSTransition>
-          );
-        }
-      )}
+          ))
+        : productsToDisplay.map(
+            ({
+              id,
+              title,
+              imageSource,
+              price,
+              isAvailable,
+              isPublicised,
+              categories,
+            }) => (
+              <CSSTransition key={id} classNames="menu-animation" timeout={300}>
+                <div className={cardContainerClassName}>
+                  {convertStringToBoolean(isPublicised) && <RibbonAnimated />}
+                  <Card
+                    title={title}
+                    imageSource={imageSource || IMAGE_COMING_SOON}
+                    leftDescription={formatPrice(price)}
+                    hasDeleteButton={isModeAdmin}
+                    onDelete={(event) => handleCardDelete(event, id)}
+                    onClick={() => handleProductSelected(id)}
+                    isHoverable={isModeAdmin}
+                    isSelected={checkIfProductIsClicked(id, productSelected.id)}
+                    onAdd={(event) => handleAddButton(event, id)}
+                    overlapImageSource={IMAGE_NO_STOCK}
+                    isOverlapImageVisible={
+                      convertStringToBoolean(isAvailable) === false
+                    }
+                    categories={categories}
+                  />
+                </div>
+              </CSSTransition>
+            )
+          )}
     </TransitionGroup>
   );
 }

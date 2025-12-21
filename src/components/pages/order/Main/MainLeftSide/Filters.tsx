@@ -2,7 +2,7 @@ import { Chip } from "@/components/reusable-ui/Chip";
 import { useOrderContext } from "@/context/OrderContext";
 import styled from "styled-components";
 import { theme } from "@/theme";
-import { CATEGORY_ALL, DEFAULT_CATEGORY } from "@/constants/categories";
+import { CATEGORY_ALL } from "@/constants/categories";
 import { useParams } from "react-router-dom";
 import { Category } from "@/types/Category";
 import { CATEGORY_MENUS } from "@/constants/menus";
@@ -81,7 +81,7 @@ const FiltersStyled = styled.div`
   box-shadow: ${theme.shadows.medium};
   position: sticky;
   top: 20px;
-  z-index: 1;
+  z-index: 3;
 
   .filter {
     cursor: pointer;

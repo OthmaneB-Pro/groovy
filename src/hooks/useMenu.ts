@@ -3,15 +3,15 @@ import { deepClone } from "@/utils/array";
 import { useState } from "react";
 
 export const useMenu = () => {
-  const [menu, setMenu] = useState<Menu[] | undefined>(undefined);
+  const [menuPack, setMenuPack] = useState<Menu[] | []>([]);
 
   const handleAddMenu = (newProduct: Menu) => {
-    if (menu) {
-      const menuCopy = deepClone(menu);
+    if (menuPack) {
+      const menuCopy = deepClone(menuPack);
       const menuUpdated = [newProduct, ...menuCopy];
-      setMenu(menuUpdated);
+      setMenuPack(menuUpdated);
     }
   };
 
-  return {handleAddMenu};
+  return { handleAddMenu, menuPack, setMenuPack };
 };
