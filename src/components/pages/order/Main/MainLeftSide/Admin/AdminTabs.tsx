@@ -13,6 +13,7 @@ export default function AdminTabs() {
     currentTabSelected,
     setCurrentTabSelected,
     toggleMenusCategory,
+    toggleAllCategories,
   } = useOrderContext();
 
   const selectTab = (tabSelected: ADMIN_TAB_LABEL) => {
@@ -20,6 +21,8 @@ export default function AdminTabs() {
     setCurrentTabSelected(tabSelected);
     if (tabSelected === ADMIN_TAB_LABEL.CREATE_MENU) {
       toggleMenusCategory();
+    } else {
+      toggleAllCategories();
     }
   };
 
