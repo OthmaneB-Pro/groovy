@@ -12,11 +12,15 @@ export default function AdminTabs() {
     setIsCollapsed,
     currentTabSelected,
     setCurrentTabSelected,
+    toggleMenusCategory,
   } = useOrderContext();
 
   const selectTab = (tabSelected: ADMIN_TAB_LABEL) => {
     setIsCollapsed(false);
     setCurrentTabSelected(tabSelected);
+    if (tabSelected === ADMIN_TAB_LABEL.CREATE_MENU) {
+      toggleMenusCategory();
+    }
   };
 
   const tabs = getTabsConfig();
