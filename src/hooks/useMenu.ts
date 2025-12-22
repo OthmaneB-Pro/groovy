@@ -5,13 +5,19 @@ import { useState } from "react";
 export const useMenu = () => {
   const [menuPack, setMenuPack] = useState<Menu[] | []>([]);
 
-  const handleAddMenu = (newProduct: Menu) => {
+  const handleAddMenu = (newMenu: Menu) => {
     if (menuPack) {
       const menuCopy = deepClone(menuPack);
-      const menuUpdated = [newProduct, ...menuCopy];
+      const menuUpdated = [newMenu, ...menuCopy];
       setMenuPack(menuUpdated);
     }
   };
 
-  return { handleAddMenu, menuPack, setMenuPack };
+  const handleDeleteMenu = (idMenu: string) => {
+    const menuCopy = deepClone(menuPack);
+    const deleteMenuById = menuCopy.filter((MenuId) => MenuId.id !== idMenu);
+    setMenuPack(deleteMenuById);
+  };
+
+  return { handleAddMenu, handleDeleteMenu, menuPack, setMenuPack };
 };

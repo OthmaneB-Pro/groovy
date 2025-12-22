@@ -57,6 +57,7 @@ type OrderContextType = {
   newMenu: Menu;
   setNewMenu: React.Dispatch<React.SetStateAction<Menu>>;
   handleAddMenu: (newProduct: Menu) => void;
+  handleDeleteMenu: (idMenu: string) => void;
   menuPack: Menu[] | undefined;
   setMenuPack: React.Dispatch<React.SetStateAction<Menu[] | []>>;
 };
@@ -80,7 +81,7 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
     useProduct();
   const { basket, setBasket, handleAddToBasket, handleDeleteBasketProduct } =
     useBasket();
-  const { menuPack, setMenuPack, handleAddMenu } = useMenu();
+  const { menuPack, setMenuPack, handleAddMenu, handleDeleteMenu } = useMenu();
   const {
     categories,
     setCategories,
@@ -138,6 +139,7 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
     newMenu,
     setNewMenu,
     handleAddMenu,
+    handleDeleteMenu,
     menuPack,
     setMenuPack,
   };

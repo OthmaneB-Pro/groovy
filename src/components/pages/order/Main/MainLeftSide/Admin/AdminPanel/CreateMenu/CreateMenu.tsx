@@ -34,7 +34,6 @@ export default function CreateMenu() {
         },
       ],
     };
-    console.log("newMenuToAdd : ", newMenuToAdd);
     handleAddMenu(newMenuToAdd);
     setNewMenu(EMPTY_MENU);
 
@@ -51,7 +50,7 @@ export default function CreateMenu() {
   return (
     <Form product={newMenu} onSubmit={handleSubmit} onChange={handleChange}>
       <SubmitButton
-        label="Ajouter un nouveau produit au menu"
+        label="Ajouter un nouveau menu"
         isSubmitted={isSubmitted}
       />
     </Form>

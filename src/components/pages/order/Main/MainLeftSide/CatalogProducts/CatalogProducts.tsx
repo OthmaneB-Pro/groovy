@@ -35,6 +35,7 @@ export default function CatalogProducts() {
     categoryAll,
     categoryMenus,
     menuPack,
+    handleDeleteMenu,
   } = useOrderContext();
 
   const { username } = useParams();
@@ -47,6 +48,7 @@ export default function CatalogProducts() {
     if (!username) return;
     handleDelete(idProductToDelete, username);
     handleDeleteBasketProduct(idProductToDelete, username);
+    handleDeleteMenu(idProductToDelete)
     idProductToDelete === productSelected.id &&
       setProductSelected(EMPTY_PRODUCT);
   };
