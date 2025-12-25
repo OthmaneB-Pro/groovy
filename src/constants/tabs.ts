@@ -4,4 +4,5 @@ export enum ADMIN_TAB_LABEL {
   CHEVRON = "chevron",
   CATEGORY_ADD = "categoryAdd",
   CREATE_MENU = "categoryMenu",
+  EDIT_MENU = "MenuEdit"
 }

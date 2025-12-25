@@ -19,7 +19,7 @@ export default function AdminTabs() {
   const selectTab = (tabSelected: ADMIN_TAB_LABEL) => {
     setIsCollapsed(false);
     setCurrentTabSelected(tabSelected);
-    if (tabSelected === ADMIN_TAB_LABEL.CREATE_MENU) {
+    if (tabSelected === ADMIN_TAB_LABEL.CREATE_MENU || tabSelected === ADMIN_TAB_LABEL.EDIT_MENU) {
       toggleMenusCategory();
     } else {
       toggleAllCategories();
