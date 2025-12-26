@@ -3,9 +3,9 @@ import SubmitButton from "../AddForm/SubmitButton";
 import { useOrderContext } from "@/context/OrderContext";
 import { useSuccessMessage } from "@/hooks/useSuccessMessage";
 import { replaceFrenchCommaWithDot } from "@/utils/maths";
-import Form from "../Form/Form";
 import { fakeCategories } from "@/fakeData/fakeCategories";
 import { CATEGORY_MENUS, EMPTY_MENU } from "@/constants/menus";
+import MenuForm from "../MenuForm/MenuForm";
 
 export default function CreateMenu() {
   const { handleAddMenu, newMenu, setNewMenu } = useOrderContext();
@@ -48,11 +48,8 @@ export default function CreateMenu() {
   };
 
   return (
-    <Form product={newMenu} onSubmit={handleSubmit} onChange={handleChange}>
-      <SubmitButton
-        label="Ajouter un nouveau menu"
-        isSubmitted={isSubmitted}
-      />
-    </Form>
+    <MenuForm product={newMenu} onSubmit={handleSubmit} onChange={handleChange}>
+      <SubmitButton label="Ajouter un nouveau menu" isSubmitted={isSubmitted} />
+    </MenuForm>
   );
 }
