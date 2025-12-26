@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { fakeMenu } from "@/fakeData/fakeMenu";
+import { fakeMenu } from "@/fakeData/fakeMenus";
 import { deepClone } from "@/utils/array";
 import { updateMenus } from "@/api/product";
 import { Product } from "@/types/Product";

@@ -1,13 +1,14 @@
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "./firebase-config";
-import { fakeMenu } from "../fakeData/fakeMenu";
 import { User } from "@/types/User";
 import { fakeProducts } from "@/fakeData/fakeProducts";
 import { fakeCategories } from "@/fakeData/fakeCategories";
+import { fakeMenu } from "@/fakeData/fakeMenus";
 
 const NEW_USER_BY_DEFAULT = {
   products: fakeProducts.LARGE,
   categories: fakeCategories.LARGE,
+  menuPack: fakeMenu.MEDIUM,
 };
 
 export const getUser = async (idUser: string): Promise<User | undefined> => {
@@ -25,7 +26,8 @@ export const createUser = async (userId: string): Promise<User> => {
 
   const newUserToCreate: User = {
     username: userId,
-    menu: fakeMenu.LARGE,
+    menu: NEW_USER_BY_DEFAULT.products,
+    menuPack: NEW_USER_BY_DEFAULT.menuPack,
     categories: NEW_USER_BY_DEFAULT.categories,
   };
 

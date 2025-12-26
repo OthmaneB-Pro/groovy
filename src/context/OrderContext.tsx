@@ -56,10 +56,13 @@ type OrderContextType = {
   setNewCategory: React.Dispatch<React.SetStateAction<Category>>;
   newMenu: Menu;
   setNewMenu: React.Dispatch<React.SetStateAction<Menu>>;
-  handleAddMenu: (newProduct: Menu) => void;
-  handleDeleteMenu: (idMenu: string) => void;
+  handleAddMenu: (username: string, newProduct: Menu) => void;
+  handleDeleteMenu: (username: string, idMenu: string) => void;
   menuPack: Menu[] | undefined;
-  setMenuPack: React.Dispatch<React.SetStateAction<Menu[] | []>>;
+  setMenuPack: React.Dispatch<React.SetStateAction<Menu[] | undefined>>;
+  resetMenus: (username: string) => void;
+  menuSelected: Menu;
+  setMenuSelected: React.Dispatch<React.SetStateAction<Menu>>;
 };
 
 const OrderContext = createContext<OrderContextType | undefined>(undefined);
@@ -76,12 +79,13 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
 
   const [productSelected, setProductSelected] =
     useState<Product>(EMPTY_PRODUCT);
+  const [menuSelected, setMenuSelected] = useState<Menu>(EMPTY_MENU);
   const titleEditRef = useRef<HTMLInputElement>(null);
   const { menu, setMenu, handleAdd, handleDelete, handleEdit, resetMenu } =
     useProduct();
   const { basket, setBasket, handleAddToBasket, handleDeleteBasketProduct } =
     useBasket();
-  const { menuPack, setMenuPack, handleAddMenu, handleDeleteMenu } = useMenu();
+  const { menuPack, setMenuPack, handleAddMenu, handleDeleteMenu, resetMenus } = useMenu();
   const {
     categories,
     setCategories,
@@ -142,6 +146,9 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
     handleDeleteMenu,
     menuPack,
     setMenuPack,
+    resetMenus,
+    menuSelected,
+    setMenuSelected,
   };
 
   return (

@@ -18,7 +18,6 @@ import RibbonAnimated, { ribbonAnimation } from "./RibbonAnimated";
 import { useParams } from "react-router-dom";
 import EmptyCatalogProductsAdmin from "./EmptyCatalogProductsAdmin";
 import EmptyCatalogProductsClient from "./EmptyCatalogProductsClient";
-import { CATEGORY_MENUS } from "@/constants/menus";
 
 export default function CatalogProducts() {
   const {
@@ -33,9 +32,6 @@ export default function CatalogProducts() {
     handleProductSelected,
     categories,
     categoryAll,
-    categoryMenus,
-    menuPack,
-    handleDeleteMenu,
   } = useOrderContext();
 
   const { username } = useParams();
@@ -48,7 +44,6 @@ export default function CatalogProducts() {
     if (!username) return;
     handleDelete(idProductToDelete, username);
     handleDeleteBasketProduct(idProductToDelete, username);
-    handleDeleteMenu(idProductToDelete)
     idProductToDelete === productSelected.id &&
       setProductSelected(EMPTY_PRODUCT);
   };
@@ -82,33 +77,7 @@ export default function CatalogProducts() {
 
   return (
     <TransitionGroup component={CatalogProductsStyled} className="menu">
-      {categoryMenus.isActive
-        ? (menuPack ?? []).map((menu) => (
-            <CSSTransition
-              key={menu.id}
-              classNames="menu-animation"
-              timeout={300}
-            >
-              <div className={cardContainerClassName}>
-                <Card
-                  title={menu.title}
-                  imageSource={menu.imageSource || IMAGE_COMING_SOON}
-                  leftDescription={formatPrice(menu.price)}
-                  hasDeleteButton={isModeAdmin}
-                  onDelete={(event) => handleCardDelete(event, menu.id)}
-                  onClick={() => handleProductSelected(menu.id)}
-                  isHoverable={isModeAdmin}
-                  overlapImageSource={IMAGE_NO_STOCK}
-                  isSelected={checkIfProductIsClicked(
-                    menu.id,
-                    productSelected.id
-                  )}
-                  categories={[CATEGORY_MENUS]}
-                />
-              </div>
-            </CSSTransition>
-          ))
-        : productsToDisplay.map(
+      {productsToDisplay.map(
             ({
               id,
               title,

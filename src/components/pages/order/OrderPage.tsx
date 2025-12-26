@@ -19,6 +19,7 @@ export default function OrderPage() {
     setIsCollapsed,
     isModeAdmin,
     setCategories,
+    setMenuPack,
   } = useOrderContext();
   const [isModal, setIsModal] = useState(true);
 
@@ -30,8 +31,14 @@ export default function OrderPage() {
   });
 
   useEffect(() => {
-    username &&
-      initialiseUserSession(username, setMenu, setBasket, setCategories);
+    if (username)
+      initialiseUserSession(
+        username,
+        setMenu,
+        setBasket,
+        setCategories,
+        setMenuPack
+      );
   }, []);
 
   return (

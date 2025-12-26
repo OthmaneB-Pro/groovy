@@ -1,22 +1,36 @@
-import { getCategories } from "@/api/categories";
 import { getMenu } from "@/api/product";
-import { Category } from "@/types/Category";
-import { BasketProductQuantity, Product } from "@/types/Product";
 import { getLocalStorage } from "@/utils/window";
+import { getCategories } from "@/api/categories";
+import { BasketProductQuantity, Product } from "@/types/Product";
+import { Category } from "@/types/Category";
+import { Menu } from "@/types/Menu";
+import { getMenus } from "@/api/menus";
 
-const intialiseMenu = async (
+const intialiseProducts = async (
   username: string,
   setMenu: React.Dispatch<React.SetStateAction<Product[] | undefined>>
-): Promise<void> => {
-  const menuReceived = await getMenu(username);
-  setMenu(menuReceived);
+) => {
+  const productsReceived = await getMenu(username);
+  setMenu(productsReceived);
+};
+
+const intialiseMenus = async (
+  username: string,
+  setMenuPack: React.Dispatch<React.SetStateAction<Menu[] | undefined>>
+) => {
+  const menusReceived = await getMenus(username);
+  if (!menusReceived) {
+    setMenuPack([]);
+    return;
+  }
+  setMenuPack(menusReceived);
 };
 
 const intialiseBasket = (
   username: string,
   setBasket: React.Dispatch<React.SetStateAction<BasketProductQuantity[]>>
 ) => {
-  const basketReceived = getLocalStorage(username);
+  const basketReceived = getLocalStorage(username); // localStorage est synchrone, pas besoin de "await".
   if (basketReceived) setBasket(basketReceived as BasketProductQuantity[]);
 };
 
@@ -34,10 +48,11 @@ export const initialiseUserSession = async (
   username: string,
   setMenu: React.Dispatch<React.SetStateAction<Product[] | undefined>>,
   setBasket: React.Dispatch<React.SetStateAction<BasketProductQuantity[]>>,
-  setCategories: React.Dispatch<React.SetStateAction<Category[]>>
-): Promise<void> => {
-  if (!username) return;
-  await intialiseMenu(username, setMenu);
-  await intialiseCategories(username, setCategories);
+  setCategories: React.Dispatch<React.SetStateAction<Category[]>>,
+  setMenuPack: React.Dispatch<React.SetStateAction<Menu[] | undefined>>
+) => {
+  await intialiseProducts(username, setMenu);
   intialiseBasket(username, setBasket);
+  await intialiseCategories(username, setCategories);
+  intialiseMenus(username, setMenuPack);
 };

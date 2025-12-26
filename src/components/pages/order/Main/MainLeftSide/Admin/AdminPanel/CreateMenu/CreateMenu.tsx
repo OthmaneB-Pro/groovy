@@ -3,7 +3,6 @@ import SubmitButton from "../AddForm/SubmitButton";
 import { useOrderContext } from "@/context/OrderContext";
 import { useSuccessMessage } from "@/hooks/useSuccessMessage";
 import { replaceFrenchCommaWithDot } from "@/utils/maths";
-import { fakeCategories } from "@/fakeData/fakeCategories";
 import { CATEGORY_MENUS, EMPTY_MENU } from "@/constants/menus";
 import MenuForm from "../MenuForm/MenuForm";
 
@@ -21,20 +20,8 @@ export default function CreateMenu() {
       id: crypto.randomUUID(),
       price: replaceFrenchCommaWithDot(newMenu.price),
       categories: [CATEGORY_MENUS],
-      products: [
-        {
-          id: "1",
-          imageSource: "https://www.tacosgratines.com/produit/2093_105.png",
-          title: "Burger Maison",
-          price: 5.297,
-          quantity: 0,
-          isAvailable: true,
-          isPublicised: false,
-          categories: [fakeCategories.LARGE[0]],
-        },
-      ],
     };
-    handleAddMenu(newMenuToAdd);
+    handleAddMenu(username, newMenuToAdd);
     setNewMenu(EMPTY_MENU);
 
     displaySuccessMessage();
