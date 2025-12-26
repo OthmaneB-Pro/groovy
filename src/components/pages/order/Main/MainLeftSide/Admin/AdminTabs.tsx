@@ -19,7 +19,10 @@ export default function AdminTabs() {
   const selectTab = (tabSelected: ADMIN_TAB_LABEL) => {
     setIsCollapsed(false);
     setCurrentTabSelected(tabSelected);
-    if (tabSelected === ADMIN_TAB_LABEL.CREATE_MENU || tabSelected === ADMIN_TAB_LABEL.EDIT_MENU) {
+    if (
+      tabSelected === ADMIN_TAB_LABEL.CREATE_MENU ||
+      tabSelected === ADMIN_TAB_LABEL.EDIT_MENU
+    ) {
       toggleMenusCategory();
     } else {
       toggleAllCategories();
@@ -27,6 +30,16 @@ export default function AdminTabs() {
   };
 
   const tabs = getTabsConfig();
+
+  const getClassNameToApply = (tabIndex: ADMIN_TAB_LABEL): string => {
+    if (
+      tabIndex === ADMIN_TAB_LABEL.CREATE_MENU ||
+      tabIndex === ADMIN_TAB_LABEL.EDIT_MENU
+    )
+      return currentTabSelected === tabIndex ? "is-products-tab-active" : "";
+
+    return currentTabSelected === tabIndex ? "is-active" : "";
+  };
 
   return (
     <AdminTabsStyled>
@@ -44,7 +57,7 @@ export default function AdminTabs() {
           label={tab.label}
           Icon={tab.Icon}
           onClick={() => selectTab(tab.index)}
-          className={currentTabSelected === tab.index ? "is-active" : ""}
+          className={getClassNameToApply(tab.index)}
         />
       ))}
     </AdminTabsStyled>
@@ -60,6 +73,11 @@ const AdminTabsStyled = styled.div`
   .is-active {
     background: ${theme.colors.background_dark};
     border-color: ${theme.colors.background_dark};
+    color: ${theme.colors.white};
+  }
+  .is-products-tab-active{
+    background: ${theme.colors.purple};
+    border-color: ${theme.colors.purple};
     color: ${theme.colors.white};
   }
 
