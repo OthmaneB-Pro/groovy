@@ -11,7 +11,7 @@ export const getInputTextsConfig = (newProduct: Product) => [
     id: "0",
     name: "title",
     value: newProduct.title,
-    placeholder: "Nom du produit (ex: Super Burger)",
+    placeholder: "Nom du menu (ex: Groovy Menu)",
     Icon: <FaHamburger />,
     version: "minimalist",
     className: "title",

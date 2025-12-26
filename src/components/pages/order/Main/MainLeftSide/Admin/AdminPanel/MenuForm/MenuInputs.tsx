@@ -8,8 +8,6 @@ import { MultiSelect } from "@/components/reusable-ui/MultiSelect.tsx/MultiSelec
 import { useOrderContext } from "@/context/OrderContext";
 import { IoPricetag } from "react-icons/io5";
 import { MultiValue } from "react-select";
-import { Category } from "@/types/Category";
-import { ADMIN_TAB_LABEL } from "@/constants/tabs";
 import { getInputTextsConfig, getSelectInputConfig } from "./menuInputConfig";
 
 export type InputsProps = {
@@ -18,17 +16,28 @@ export type InputsProps = {
 
 export const MenuInputs = React.forwardRef<HTMLInputElement, InputsProps>(
   ({ product, onChange, onFocus, onBlur }, ref) => {
-    const { categories, productSelected, newProduct, currentTabSelected } =
-      useOrderContext();
+    const { menu, newMenu } = useOrderContext();
+
+    type MultiSelectOption = { value: string; label: string };
+
+    const multiSelectProductOptions: (Product & MultiSelectOption)[] = menu
+      ? menu.map((pro) => {
+          return {
+            ...pro,
+            label: pro.title,
+            value: pro.id,
+          };
+        })
+      : [];
 
     const inputTexts = getInputTextsConfig(product);
     const inputSelects = getSelectInputConfig(product);
 
-    const onChangeMulti = (selectedCategories: MultiValue<Category>) => {
+    const onChangeMulti = (selectedProducts: MultiValue<Product>) => {
       const eventMulti = {
         target: {
-          name: "categories",
-          value: selectedCategories,
+          name: "products",
+          value: selectedProducts,
         },
       } as unknown as React.ChangeEvent<HTMLInputElement | HTMLSelectElement>;
       onChange && onChange(eventMulti);
@@ -53,18 +62,14 @@ export const MenuInputs = React.forwardRef<HTMLInputElement, InputsProps>(
             onBlur={onBlur}
           />
         </div>
-        <div className="categories">
+        <div className="products">
           <MultiSelect
             menuPlacement="auto"
-            options={categories}
+            options={multiSelectProductOptions}
             onChange={onChangeMulti}
             customIcon={IoPricetag}
-            placeholder="Catégorie (ex: Boisson)"
-            value={
-              currentTabSelected === ADMIN_TAB_LABEL.ADD
-                ? newProduct.categories
-                : productSelected.categories
-            }
+            placeholder="Produits inclus dans le menu"
+            value={newMenu.products}
             onFocus={onFocus}
             onBlur={onBlur}
           />
@@ -116,7 +121,7 @@ const MenuInputsStyled = styled.div`
     }
   }
 
-  .categories {
+  .products {
     grid-area: 2/1/-3/-1;
   }
 
