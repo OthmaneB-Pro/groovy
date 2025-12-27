@@ -3,8 +3,12 @@ import SubmitButton from "../AddForm/SubmitButton";
 import { useOrderContext } from "@/context/OrderContext";
 import { useSuccessMessage } from "@/hooks/useSuccessMessage";
 import { replaceFrenchCommaWithDot } from "@/utils/maths";
-import { CATEGORY_MENUS, EMPTY_MENU } from "@/constants/menus";
+import { EMPTY_MENU } from "@/constants/menus";
 import MenuForm from "../MenuForm/MenuForm";
+import { getCategoriesFromMenuProducts, getMenuPrice } from "./helper";
+import { Product } from "@/types/Product";
+import { Category } from "@/types/Category";
+import { Menu } from "@/types/Menu";
 
 export default function CreateMenu() {
   const { handleAddMenu, newMenu, setNewMenu } = useOrderContext();
@@ -19,7 +23,6 @@ export default function CreateMenu() {
       ...newMenu,
       id: crypto.randomUUID(),
       price: replaceFrenchCommaWithDot(newMenu.price),
-      categories: [CATEGORY_MENUS],
     };
     handleAddMenu(username, newMenuToAdd);
     setNewMenu(EMPTY_MENU);
@@ -30,12 +33,35 @@ export default function CreateMenu() {
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
+
     const { name, value } = event.target;
-    setNewMenu({ ...newMenu, [name]: value });
+
+    let menuPrice: number = newMenu.price;
+    let menuCategories: Category[] = newMenu.categories || [];
+
+    if (name === "products") {
+      menuPrice = getMenuPrice(value as unknown as Product[]);
+      menuCategories = getCategoriesFromMenuProducts(
+        value as unknown as Product[]
+      );
+    }
+
+    if (name === "price") {
+      menuPrice = value as unknown as number; // car "value" (de event.target) est par défaut TOUJOURS de type string (même si c'est pas vrai dans la vraie vie)
+    }
+
+    const newMenuToAdd: Menu = {
+      ...newMenu,
+      [name]: value,
+      price: menuPrice,
+      categories: menuCategories,
+    };
+
+    setNewMenu(newMenuToAdd);
   };
 
   return (
-    <MenuForm product={newMenu} onSubmit={handleSubmit} onChange={handleChange}>
+    <MenuForm menu={newMenu} onSubmit={handleSubmit} onChange={handleChange}>
       <SubmitButton label="Ajouter un nouveau menu" isSubmitted={isSubmitted} />
     </MenuForm>
   );

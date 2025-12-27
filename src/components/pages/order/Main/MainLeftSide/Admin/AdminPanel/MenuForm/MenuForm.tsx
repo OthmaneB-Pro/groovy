@@ -1,20 +1,20 @@
 import React from "react";
 import styled from "styled-components";
-import { MenuInputs, InputsProps } from "../MenuForm/MenuInputs";
+import { MenuInputs, MenuInputsProps } from "../MenuForm/MenuInputs";
 import ImagePreview from "../MenuForm/ImagePreview";
 
 type MenuFormProps = {
   onSubmit?: React.FormEventHandler<HTMLFormElement>;
   children: React.ReactNode;
-} & InputsProps;
+} & MenuInputsProps;
 
 const MenuForm = React.forwardRef<HTMLInputElement, MenuFormProps>(
-  ({ product, onSubmit, children, onChange, onFocus, onBlur }, ref) => {
+  ({ menu, onSubmit, children, onChange, onFocus, onBlur }, ref) => {
     return (
       <MenuFormStyled onSubmit={onSubmit}>
-        <ImagePreview imageSource={product.imageSource} title={product.title} />
+        <ImagePreview imageSource={menu.imageSource} title={menu.title} />
         <MenuInputs
-          product={product}
+          menu={menu}
           onChange={onChange}
           onFocus={onFocus}
           onBlur={onBlur}

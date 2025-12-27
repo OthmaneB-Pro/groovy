@@ -1,37 +1,72 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TextInput from "@/components/reusable-ui/TextInput";
 import SelectInput from "@/components/reusable-ui/SelectInput";
 import styled from "styled-components";
-import { Product } from "@/types/Product";
-import { FormEvents } from "@/types/FormEvents";
-import { MultiSelect } from "@/components/reusable-ui/MultiSelect.tsx/MultiSelect";
-import { useOrderContext } from "@/context/OrderContext";
-import { IoPricetag } from "react-icons/io5";
-import { MultiValue } from "react-select";
 import { getInputTextsConfig, getSelectInputConfig } from "./menuInputConfig";
+import { FormEvents } from "@/types/FormEvents";
+import { useOrderContext } from "@/context/OrderContext";
+import { MultiValue } from "react-select";
+import { IoPricetag } from "react-icons/io5";
+import { Menu } from "@/types/Menu";
+import { Product } from "@/types/Product";
+import PriceAnimated from "./PriceAnimated";
+import { MultiSelect } from "@/components/reusable-ui/MultiSelect.tsx/MultiSelect";
 
-export type InputsProps = {
-  product: Product;
+export type MenuInputsProps = {
+  menu: Menu;
 } & FormEvents;
 
-export const MenuInputs = React.forwardRef<HTMLInputElement, InputsProps>(
-  ({ product, onChange, onFocus, onBlur }, ref) => {
-    const { menu, newMenu } = useOrderContext();
+export const getMultiSelectedProductOptions = (products: Product[]) => {
+  return products
+    ? products.map((product) => {
+        return {
+          ...product,
+          label: product.title, // "label" rajouté ici pour satisfaire aux props "options" qui exige au moins la propriété "label" dans le MultiSelect plus bas
+          value: product.id, // "value" rajouté ici pour satisfaire aux props "options" qui exige au moins la propriété "value" dans le MultiSelect plus bas
+        };
+      })
+    : [];
+};
+
+export const MenuInputs = React.forwardRef<HTMLInputElement, MenuInputsProps>(
+  ({ menu, onChange, onFocus, onBlur }, ref) => {
+    const { menu: products } = useOrderContext();
+    const [previousMenu, setPreviousMenu] =
+      useState<Pick<Menu, "id" | "price">>(menu);
+    const [isPriceAnimationVisible, setIsPriceAnimationVisible] =
+      useState(false);
+    const [addedProductPrice, setAddedProductPrice] = useState(0);
 
     type MultiSelectOption = { value: string; label: string };
 
-    const multiSelectProductOptions: (Product & MultiSelectOption)[] = menu
-      ? menu.map((pro) => {
-          return {
-            ...pro,
-            label: pro.title,
-            value: pro.id,
-          };
-        })
-      : [];
+    // Duck Typing : si au moins y'a un Product c'est ok, même si y'a plusse de propriétés que prévu dans le type attendu.
+    const multiSelectProductOptions: (MultiSelectOption & Product)[] =
+      getMultiSelectedProductOptions(products || []);
 
-    const inputTexts = getInputTextsConfig(product);
-    const inputSelects = getSelectInputConfig(product);
+    const inputTexts = getInputTextsConfig(menu);
+    const inputSelects = getSelectInputConfig(menu);
+
+    // useEffet pour détecter l'augmentation du prix et calculer le prix du produit ajouté
+    useEffect(() => {
+      const isSameMenu = menu.id === previousMenu.id;
+      const hasMenuPriceChanged = menu.price > previousMenu.price;
+      const hasMenuAtLeastOneProduct = menu?.products?.length > 1;
+
+      // en gros, faut 3 conditions pour activer l'animation du prix "mustActivatePriceAnimation"
+      const mustActivatePriceAnimation =
+        isSameMenu && hasMenuAtLeastOneProduct && hasMenuPriceChanged;
+
+      if (mustActivatePriceAnimation) {
+        const productPriceJustAdded = menu.price - previousMenu.price;
+        setAddedProductPrice(productPriceJustAdded);
+        setIsPriceAnimationVisible(true);
+      }
+
+      setPreviousMenu({
+        price: menu.price,
+        id: menu.id,
+      });
+    }, [menu.price, menu.id, previousMenu.price, previousMenu.id]);
 
     const onChangeMulti = (selectedProducts: MultiValue<Product>) => {
       const eventMulti = {
@@ -43,9 +78,15 @@ export const MenuInputs = React.forwardRef<HTMLInputElement, InputsProps>(
       onChange && onChange(eventMulti);
     };
 
+    const handlePriceAnimationEnd = () => {
+      setIsPriceAnimationVisible(false);
+    };
+
+    // affichage
     return (
       <MenuInputsStyled>
         <div className="first-row">
+          {/* NAME */}
           <TextInput
             {...inputTexts[0]}
             onChange={onChange}
@@ -54,6 +95,7 @@ export const MenuInputs = React.forwardRef<HTMLInputElement, InputsProps>(
             onBlur={onBlur}
             ref={ref && inputTexts[0].name === "title" ? ref : null}
           />
+          {/* IMAGE URL */}
           <TextInput
             {...inputTexts[1]}
             onChange={onChange}
@@ -62,6 +104,7 @@ export const MenuInputs = React.forwardRef<HTMLInputElement, InputsProps>(
             onBlur={onBlur}
           />
         </div>
+        {/* PRODUCTS INCLUS DANS LE MENU */}
         <div className="products">
           <MultiSelect
             menuPlacement="auto"
@@ -69,19 +112,28 @@ export const MenuInputs = React.forwardRef<HTMLInputElement, InputsProps>(
             onChange={onChangeMulti}
             customIcon={IoPricetag}
             placeholder="Produits inclus dans le menu"
-            value={newMenu.products}
+            value={menu.products}
             onFocus={onFocus}
             onBlur={onBlur}
           />
         </div>
-        <TextInput
-          {...inputTexts[2]}
-          onChange={onChange}
-          version="minimalist"
-          onFocus={onFocus}
-          onBlur={onBlur}
-        />
-
+        {/* PRICE */}
+        <div className="price-container">
+          <PriceAnimated
+            isVisible={isPriceAnimationVisible}
+            onAnimationEnd={handlePriceAnimationEnd}
+            className="price-animated"
+            price={addedProductPrice}
+          />
+          <TextInput
+            {...inputTexts[3]}
+            onChange={onChange}
+            version="minimalist"
+            onFocus={onFocus}
+            onBlur={onBlur}
+          />
+        </div>
+        {/* STOCK ET PUB */}
         {inputSelects.map((inputSelect) => (
           <SelectInput
             {...inputSelect}
@@ -97,6 +149,8 @@ export const MenuInputs = React.forwardRef<HTMLInputElement, InputsProps>(
 );
 
 const MenuInputsStyled = styled.div`
+  /* border: 1px solid red; */
+  /* background: blue; */
   grid-area: 1 / 2 / -2 / 3;
 
   display: grid;
@@ -105,6 +159,7 @@ const MenuInputsStyled = styled.div`
   grid-row-gap: 8px;
   grid-column-gap: 8px;
 
+  // ROW 1
   .first-row {
     grid-area: 1/1/2/4;
     display: grid;
@@ -113,19 +168,26 @@ const MenuInputsStyled = styled.div`
 
     .title {
       grid-template-areas: 1/1/2/2;
+      /* border: 1px solid blue; */
     }
 
     .image-source {
       grid-template-areas: 1/2/-1/-1;
-      min-width: 0;
+      /* border: 1px solid green; */
+      /* overflow: hidden;  */
+      min-width: 0; // hyper important pour empecher le Select de déborder sur la largeur.
     }
   }
 
+  // ROW 2
   .products {
     grid-area: 2/1/-3/-1;
   }
 
-  .price {
+  // ROW 3
+  .price-container {
     grid-area: 3/1/4/2;
+    position: relative;
+    display: grid;
   }
 `;
