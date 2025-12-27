@@ -19,9 +19,9 @@ export const useMenu = () => {
   const handleDeleteMenu = (username: string, idMenu: string) => {
     if (menuPack) {
       const menuCopy = deepClone(menuPack);
-      const deleteMenuById = menuCopy.filter((MenuId) => MenuId.id !== idMenu);
-      setMenuPack(deleteMenuById);
-      updateMenusInDB(username, deleteMenuById);
+      const menuUpdated = menuCopy.filter((menu) => menu.id !== idMenu);
+      setMenuPack(menuUpdated);
+      updateMenusInDB(username, menuUpdated);
     }
   };
   const resetMenus = (username: string) => {

@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { fakeMenu } from "@/fakeData/fakeMenus";
 import { deepClone } from "@/utils/array";
 import { updateMenus } from "@/api/product";
 import { Product } from "@/types/Product";
+import { fakeProducts } from "@/fakeData/fakeProducts";
 
 export const useProduct = () => {
   const [menu, setMenu] = useState<Product[] | undefined>(undefined);
@@ -40,8 +40,8 @@ export const useProduct = () => {
   };
 
   const resetMenu = (username: string) => {
-    setMenu(fakeMenu.LARGE);
-    updateMenus(username, fakeMenu.LARGE);
+    setMenu(fakeProducts.LARGE);
+    updateMenus(username, fakeProducts.LARGE);
   };
 
   return { menu, setMenu, handleAdd, handleDelete, handleEdit, resetMenu };

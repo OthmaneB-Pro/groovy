@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { useOrderContext } from "@/context/OrderContext";
 import { formatPrice } from "@/utils/maths";
 import Card from "@/components/reusable-ui/Card";
-import EmptyCatalogProductsAdmin from "@/components/pages/order/Main/MainLeftSide/CatalogProducts/EmptyCatalogProductsAdmin";
 import EmptyCatalogProductsClient from "@/components/pages/order/Main/MainLeftSide/CatalogProducts/EmptyCatalogProductsClient";
 import { IMAGE_COMING_SOON, IMAGE_NO_STOCK } from "@/constants/product";
 import { isEmpty } from "@/utils/array";
@@ -14,6 +13,7 @@ import { Menu } from "@/types/Menu";
 import { checkIfProductIsClicked } from "../CatalogProducts/helper";
 import { theme } from "@/theme";
 import { EMPTY_MENU } from "@/constants/menus";
+import EmptyCatalogMenusAdmin from "./EmptyCatalogMenusAdmin";
 
 type CatalogMenusProps = {
   menus: Menu[] | undefined;
@@ -31,9 +31,7 @@ export default function CatalogMenus({ menus }: CatalogMenusProps) {
 
   const { username } = useParams();
 
-  const handleMenuClick = (id : string) => {
-    
-  }
+  const handleMenuClick = (id: string) => {};
 
   const handleAddButton = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -49,7 +47,7 @@ export default function CatalogMenus({ menus }: CatalogMenusProps) {
   ) => {
     event.stopPropagation();
     if (!username) return;
-    handleDeleteMenu(idOfMenuToDelete, username);
+    handleDeleteMenu(username, idOfMenuToDelete);
     // handleDeleteBasketProduct(idOfMenuToDelete, username) // à gérer dans un ticket future
     idOfMenuToDelete === menuSelected.id && setMenuSelected(EMPTY_MENU);
   };
@@ -63,7 +61,7 @@ export default function CatalogMenus({ menus }: CatalogMenusProps) {
   if (isEmpty(menus)) {
     if (!isModeAdmin) return <EmptyCatalogProductsClient />;
     if (username)
-      return <EmptyCatalogProductsAdmin onReset={() => resetMenus(username)} />;
+      return <EmptyCatalogMenusAdmin onReset={() => resetMenus(username)} />;
   }
 
   return (
