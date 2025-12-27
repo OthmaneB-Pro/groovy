@@ -8,9 +8,9 @@ import { calculateSumToPay } from "./helper";
 import { Product } from "@/types/Product";
 
 export default function BasketHeader() {
-  const { basket, menu } = useOrderContext();
+  const { basket, menu, menuPack } = useOrderContext();
 
-  const sumToPay = calculateSumToPay(basket, menu as Product[]);
+  const sumToPay = calculateSumToPay(basket, menu as Product[], menuPack );
 
   return (
     <Header>
