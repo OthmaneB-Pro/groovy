@@ -1,52 +1,37 @@
 import styled from "styled-components";
 import { useOrderContext } from "@/context/OrderContext";
-import { theme } from "@/theme";
 import { formatPrice } from "@/utils/maths";
 import Card from "@/components/reusable-ui/Card";
-import { checkIfProductIsClicked, getProductsToDisplay } from "./helper";
-import {
-  EMPTY_PRODUCT,
-  IMAGE_COMING_SOON,
-  IMAGE_NO_STOCK,
-} from "@/constants/product";
-import { getCategoryActive, isEmpty } from "@/utils/array";
-import LoadingMessage from "./LoadingMessage";
+import EmptyCatalogProductsClient from "@/components/pages/order/Main/MainLeftSide/CatalogProducts/EmptyCatalogProductsClient";
+import { IMAGE_COMING_SOON, IMAGE_NO_STOCK } from "@/constants/product";
+import { isEmpty } from "@/utils/array";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { menuAnimation } from "@/theme/animations";
 import { convertStringToBoolean } from "@/utils/string";
-import RibbonAnimated, { ribbonAnimation } from "./RibbonAnimated";
+import RibbonAnimated from "../CatalogProducts/RibbonAnimated";
 import { useParams } from "react-router-dom";
-import EmptyCatalogProductsAdmin from "./EmptyCatalogProductsAdmin";
-import EmptyCatalogProductsClient from "./EmptyCatalogProductsClient";
+import { Menu } from "@/types/Menu";
+import { checkIfProductIsClicked } from "../CatalogProducts/helper";
+import { theme } from "@/theme";
+import { EMPTY_MENU } from "@/constants/menus";
+import EmptyCatalogMenusAdmin from "./EmptyCatalogMenusAdmin";
 
-export default function CatalogProducts() {
+type CatalogMenusProps = {
+  menus: Menu[] | undefined;
+};
+
+export default function CatalogMenus({ menus }: CatalogMenusProps) {
   const {
-    menu,
     isModeAdmin,
-    handleDelete,
-    resetMenu,
-    productSelected,
-    setProductSelected,
     handleAddToBasket,
-    handleDeleteBasketProduct,
-    handleProductSelected,
-    categories,
-    categoryAll,
+    resetMenus,
+    handleDeleteMenu,
+    setMenuSelected,
+    menuSelected,
   } = useOrderContext();
 
   const { username } = useParams();
 
-  const handleCardDelete = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    idProductToDelete: string
-  ) => {
-    event.stopPropagation();
-    if (!username) return;
-    handleDelete(idProductToDelete, username);
-    handleDeleteBasketProduct(idProductToDelete, username);
-    idProductToDelete === productSelected.id &&
-      setProductSelected(EMPTY_PRODUCT);
-  };
+  const handleMenuClick = (id: string) => {};
 
   const handleAddButton = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -56,29 +41,34 @@ export default function CatalogProducts() {
     username && handleAddToBasket(idProductToAdd, username);
   };
 
+  const handleCardDelete = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    idOfMenuToDelete: string
+  ) => {
+    event.stopPropagation();
+    if (!username) return;
+    handleDeleteMenu(username, idOfMenuToDelete);
+    // handleDeleteBasketProduct(idOfMenuToDelete, username) // à gérer dans un ticket future
+    idOfMenuToDelete === menuSelected.id && setMenuSelected(EMPTY_MENU);
+  };
+
   let cardContainerClassName = isModeAdmin
     ? "card-container is-hoverable"
     : "card-container";
 
-  if (menu === undefined) return <LoadingMessage />;
+  if (menus === undefined) return null;
 
-  if (isEmpty(menu)) {
+  if (isEmpty(menus)) {
     if (!isModeAdmin) return <EmptyCatalogProductsClient />;
     if (username)
-      return <EmptyCatalogProductsAdmin onReset={() => resetMenu(username)} />;
+      return <EmptyCatalogMenusAdmin onReset={() => resetMenus(username)} />;
   }
 
-  const activeCategory = getCategoryActive(categories);
-  const productsToDisplay = getProductsToDisplay(
-    categoryAll,
-    menu,
-    activeCategory
-  );
-
   return (
-    <TransitionGroup component={CatalogProductsStyled} className="menu">
-      {productsToDisplay.map(
-        ({
+    <TransitionGroup component={CatalogMenusStyled} className="menus">
+      {menus.map((menu) => {
+        const isMenu = "products" in menu;
+        const {
           id,
           title,
           imageSource,
@@ -86,55 +76,56 @@ export default function CatalogProducts() {
           isAvailable,
           isPublicised,
           categories,
-        }) => (
-          <CSSTransition key={id} classNames="menu-animation" timeout={300}>
+        } = menu;
+        return (
+          <CSSTransition classNames={"menus-animation"} key={id} timeout={300}>
             <div className={cardContainerClassName}>
               {convertStringToBoolean(isPublicised) && <RibbonAnimated />}
               <Card
                 title={title}
                 imageSource={imageSource || IMAGE_COMING_SOON}
-                leftDescription={formatPrice(price)}
+                leftDescription={formatPrice(
+                  typeof price === "string" ? parseFloat(price) : price
+                )}
                 hasDeleteButton={isModeAdmin}
                 onDelete={(event) => handleCardDelete(event, id)}
-                onClick={() => handleProductSelected(id)}
                 isHoverable={isModeAdmin}
-                isSelected={checkIfProductIsClicked(id, productSelected.id)}
+                isSelected={checkIfProductIsClicked(id, menuSelected.id)}
+                isMenu={isMenu}
                 onAdd={(event) => handleAddButton(event, id)}
                 overlapImageSource={IMAGE_NO_STOCK}
                 isOverlapImageVisible={
                   convertStringToBoolean(isAvailable) === false
                 }
                 categories={categories}
+                onClick={() => handleMenuClick(id)}
               />
             </div>
           </CSSTransition>
-        )
-      )}
+        );
+      })}
     </TransitionGroup>
   );
 }
 
-const CatalogProductsStyled = styled.div`
+const CatalogMenusStyled = styled.div`
   background: transparent;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  /* grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
   grid-row-gap: 100px;
   padding: 20px 50px 150px;
   justify-items: center;
   overflow-y: scroll;
+  overflow-x: hidden;
   margin-bottom: 220px;
-
-  ${menuAnimation}
 
   .card-container {
     position: relative;
-    height: 330px; // pour éviter une zone de click verticale bizarre qu'on voit qu'au pointeur de l'outil inspect du navigateur
+    height: 330px;
     border-radius: ${theme.borderRadius.extraRound};
 
     &.is-hoverable {
       :hover {
-        /* border: 1px solid red; */
         transform: scale(1.05);
         transition: ease-out 0.4s;
       }
@@ -144,5 +135,4 @@ const CatalogProductsStyled = styled.div`
   .ribbon {
     z-index: 2;
   }
-  ${ribbonAnimation}
 `;

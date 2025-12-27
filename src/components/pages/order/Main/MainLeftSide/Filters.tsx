@@ -15,6 +15,7 @@ export const Filters = () => {
     categories,
     toggleCategoryById,
     categoryAll,
+    categoryMenus,
     toggleAllCategories,
     toggleMenusCategory,
   } = useOrderContext();
@@ -43,6 +44,11 @@ export const Filters = () => {
         className="filter"
         {...categoryAll}
         onClick={() => toggleFilter(CATEGORY_ALL.id)}
+      />
+      <Chip
+        className="filter"
+        {...categoryMenus}
+        onClick={() => toggleFilter(CATEGORY_MENUS.id)}
       />
       {categories.map((category) => {
         return (
@@ -75,7 +81,7 @@ const FiltersStyled = styled.div`
   box-shadow: ${theme.shadows.medium};
   position: sticky;
   top: 20px;
-  z-index: 1;
+  z-index: 3;
 
   .filter {
     cursor: pointer;

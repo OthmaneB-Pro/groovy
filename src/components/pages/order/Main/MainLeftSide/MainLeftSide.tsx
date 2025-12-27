@@ -5,9 +5,10 @@ import Admin from "./Admin/Admin";
 import LoadingMessage from "./CatalogProducts/LoadingMessage";
 import CatalogProducts from "./CatalogProducts/CatalogProducts";
 import { Filters } from "./Filters";
+import CatalogMenus from "./CatalogMenus/CatalogMenus";
 
 export default function MainLeftSide() {
-  const { isModeAdmin, menu } = useOrderContext();
+  const { isModeAdmin, menu, categoryMenus, menuPack } = useOrderContext();
 
   return (
     <MainLeftSideStyled>
@@ -16,7 +17,11 @@ export default function MainLeftSide() {
       ) : (
         <div className="filters-and-catalog-products">
           <Filters />
-          <CatalogProducts />
+          {categoryMenus.isActive ? (
+            <CatalogMenus menus={menuPack} />
+          ) : (
+            <CatalogProducts />
+          )}
         </div>
       )}
       {isModeAdmin && <Admin />}

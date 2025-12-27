@@ -5,8 +5,9 @@ import HintMessage from "./AdminPanel/EditForm/HintMessage";
 import AddForm from "./AdminPanel/AddForm/AddForm";
 import { TabType } from "@/types/Tabs";
 import { ADMIN_TAB_LABEL } from "@/constants/tabs";
-import { IoPricetag } from "react-icons/io5";
+import { IoFastFoodOutline, IoPricetag } from "react-icons/io5";
 import CategoryAddForm from "./AdminPanel/CategoriesForm/CategoryAddForm";
+import CreateMenu from "./AdminPanel/CreateMenu/CreateMenu";
 
 export const getTabsConfig = (hasAlreadyBeenClicked?: boolean): TabType[] => [
   {
@@ -26,6 +27,12 @@ export const getTabsConfig = (hasAlreadyBeenClicked?: boolean): TabType[] => [
     label: "Créer catégorie",
     Icon: <IoPricetag />,
     Content: <CategoryAddForm />,
+  },
+  {
+    index: ADMIN_TAB_LABEL.CREATE_MENU,
+    label: "Créer menu",
+    Icon: <IoFastFoodOutline />,
+    Content: <CreateMenu />,
   },
 ];
 

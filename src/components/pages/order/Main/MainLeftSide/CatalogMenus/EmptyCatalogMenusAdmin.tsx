@@ -2,25 +2,25 @@ import styled from "styled-components";
 import { theme } from "@/theme";
 import Button from "@/components/reusable-ui/Button";
 
-type EmptyCatalogProductsAdminProps = {
+type EmptyCatalogMenusAdminProps = {
   onReset?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
-export default function EmptyCatalogProductsAdmin({
+export default function EmptyCatalogMenusAdmin({
   onReset,
-}: EmptyCatalogProductsAdminProps) {
+}: EmptyCatalogMenusAdminProps) {
   return (
-    <EmptyCatalogProductsStyled>
-      <span className="title">Plus de produits ?</span>
+    <EmptyCatalogMenusStyled>
+      <span className="title">Le menu est vide ?</span>
       <span className="description">
         Cliquez ci-dessous pour le réinitialiser
       </span>
-      <Button label={"Générer de nouveaux produits"} onClick={onReset} />
-    </EmptyCatalogProductsStyled>
+      <Button label={"Générer de nouveaux menus"} onClick={onReset} />
+    </EmptyCatalogMenusStyled>
   );
 }
 
-const EmptyCatalogProductsStyled = styled.div`
+const EmptyCatalogMenusStyled = styled.div`
   background-color: ${theme.colors.background_white};
   box-shadow: ${theme.shadows.strong};
   border-bottom-right-radius: ${theme.borderRadius.extraRound};

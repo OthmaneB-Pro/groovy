@@ -62,14 +62,9 @@ export const useCategories = () => {
 
   const toggleMenusCategory = () => {
     const isCurrentlyActive = categoryMenus.isActive ?? false;
-
-    // Si déjà actif, on ne fait rien
     if (isCurrentlyActive) return;
-
-    // 1. Activer la catégorie "Menus"
     setCategoryMenus({ ...categoryMenus, isActive: true });
 
-    // 2. Désactiver toutes les autres catégories standards
     const categoriesUpdated = categories.map((category) => ({
       ...category,
       isActive: false,
@@ -84,17 +79,14 @@ export const useCategories = () => {
     productBeingEdited: Category,
     username: string
   ) => {
-    // 1. copie du state (deep clone)
     if (!categories) return;
     const menuCopy = deepClone(categories);
 
-    // 2. manip de la copie du state
     const indexOfProductToEdit = categories.findIndex(
       (menuProduct) => menuProduct.id === productBeingEdited.id
     );
     menuCopy[indexOfProductToEdit] = productBeingEdited;
 
-    // 3. update du state
     setCategories(menuCopy);
     // updateMenus(username, menuCopy)
   };

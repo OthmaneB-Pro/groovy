@@ -1,49 +1,33 @@
-import { useState } from "react";
-import { fakeMenu } from "@/fakeData/fakeMenu";
+import { updateMenusInDB } from "@/api/menus";
+import { fakeMenu } from "@/fakeData/fakeMenus";
+import { Menu } from "@/types/Menu";
 import { deepClone } from "@/utils/array";
-import { updateMenus } from "@/api/product";
-import { Product } from "@/types/Product";
+import { useState } from "react";
 
 export const useMenu = () => {
-  const [menu, setMenu] = useState<Product[] | undefined>(undefined);
+  const [menuPack, setMenuPack] = useState<Menu[] | undefined>();
 
-  const handleAdd = (newProduct: Product, username: string) => {
-    if (menu) {
-      const menuCopy = deepClone(menu);
-      const menuUpdated = [newProduct, ...menuCopy];
-      setMenu(menuUpdated);
-      updateMenus(username, menuUpdated);
+  const handleAddMenu = (username: string, newMenu: Menu) => {
+    if (menuPack) {
+      const menuCopy = deepClone(menuPack);
+      const menuUpdated = [newMenu, ...menuCopy];
+      setMenuPack(menuUpdated);
+      updateMenusInDB(username, menuUpdated);
     }
   };
 
-  const handleDelete = (idOfProductToDelete: string, username: string) => {
-    if (menu) {
-      const menuCopy = deepClone(menu);
-      const menuUpdated = menuCopy.filter(
-        (product) => product.id !== idOfProductToDelete
-      );
-      console.log("menuUpdated: ", menuUpdated);
-      setMenu(menuUpdated);
-      updateMenus(username, menuUpdated);
+  const handleDeleteMenu = (username: string, idMenu: string) => {
+    if (menuPack) {
+      const menuCopy = deepClone(menuPack);
+      const menuUpdated = menuCopy.filter((menu) => menu.id !== idMenu);
+      setMenuPack(menuUpdated);
+      updateMenusInDB(username, menuUpdated);
     }
   };
-
-  const handleEdit = (productBeingEdited: Product, username: string) => {
-    if (menu) {
-      const menuCopy = deepClone(menu);
-      const indexOfProductToEdit = menu.findIndex(
-        (menuProduct) => menuProduct.id === productBeingEdited.id
-      );
-      menuCopy[indexOfProductToEdit] = productBeingEdited;
-      setMenu(menuCopy);
-      updateMenus(username, menuCopy);
-    }
+  const resetMenus = (username: string) => {
+    setMenuPack(fakeMenu.MEDIUM);
+    updateMenusInDB(username, fakeMenu.MEDIUM);
   };
 
-  const resetMenu = (username: string) => {
-    setMenu(fakeMenu.LARGE);
-    updateMenus(username, fakeMenu.LARGE);
-  };
-
-  return { menu, setMenu, handleAdd, handleDelete, handleEdit, resetMenu };
+  return { handleAddMenu, handleDeleteMenu, menuPack, setMenuPack, resetMenus };
 };

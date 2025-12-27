@@ -18,4 +18,4 @@ export const BASKET_MESSAGE = {
   NOT_AVAILABLE: "Non disponible",
 } as const;
 
-export const DEFAULT_SUM_TO_PAY = 0
+export const DEFAULT_SUM_TO_PAY = 0;
